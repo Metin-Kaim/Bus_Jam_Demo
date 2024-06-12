@@ -22,6 +22,8 @@ public class GridLevelEditor : EditorWindow
     private GUIStyle _cellStyle;
     EditorTextures_SO _cellInfos_SO;
     EditorCellTextures_SO _editorCellTextures;
+    private bool _isSelectedObstaclePart;
+
 
     private int GetGridSize => _gridRow * _gridColumn;
 
@@ -45,7 +47,25 @@ public class GridLevelEditor : EditorWindow
         GenerateGrid();
         DetectSelectedGrid();
 
-        _selectedTexture = EditorGUILayout.IntSlider(_selectedTexture, 0, _cellInfos_SO.cellInfos.Count - 1);
+        if (GUILayout.Button("Get Objects"))
+        {
+            _isSelectedObstaclePart = false;
+            InitEditorTextures();
+        }
+        if (GUILayout.Button("Get Obstacles"))
+        {
+            _isSelectedObstaclePart = true;
+            InitEditorTextures();
+        }
+
+        if (_isSelectedObstaclePart)
+        {
+            _selectedTexture = EditorGUILayout.IntSlider(_selectedTexture, 0, _cellInfos_SO.ObstacleTextures.Count - 1);
+        }
+        else
+        {
+            _selectedTexture = EditorGUILayout.IntSlider(_selectedTexture, 0, _cellInfos_SO.ObjectTextures.Count - 1);
+        }
         _ = (Texture)EditorGUILayout.ObjectField(_editorTextures[_selectedTexture] != null ? _editorTextures[_selectedTexture].name : "Empty", _editorTextures[_selectedTexture], typeof(Texture), false);
 
     }
@@ -75,12 +95,23 @@ public class GridLevelEditor : EditorWindow
     private void InitEditorTextures()
     {
         _cellInfos_SO = Resources.Load<EditorTextures_SO>("Editor/EditorTextures");
+        List<EditorTexture> entityTextures;
 
-        _editorTextures = new Texture[_cellInfos_SO.cellInfos.Count];
-
-        for (int i = 0; i < _cellInfos_SO.cellInfos.Count; i++)
+        if (_isSelectedObstaclePart)
         {
-            _editorTextures[i] = _cellInfos_SO.cellInfos[i].texture;
+            entityTextures = _cellInfos_SO.ObstacleTextures;
+        }
+        else
+        {
+            entityTextures = _cellInfos_SO.ObjectTextures;
+        }
+
+
+        _editorTextures = new Texture[entityTextures.Count];
+
+        for (int i = 0; i < entityTextures.Count; i++)
+        {
+            _editorTextures[i] = entityTextures[i].texture;
         }
     }
 
@@ -91,6 +122,7 @@ public class GridLevelEditor : EditorWindow
             Texture texture = _editorTextures[_selectedTexture];
             _cellTextures[_selectedCell] = texture;
             _editorCellTextures.editorCellTextures[_selectedCell].texture = texture;
+            _editorCellTextures.editorCellTextures[_selectedCell].isObstacle = _selectedTexture != 0 && _isSelectedObstaclePart;
         }
     }
 

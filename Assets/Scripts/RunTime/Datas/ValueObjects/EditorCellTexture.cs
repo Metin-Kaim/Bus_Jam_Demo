@@ -6,5 +6,6 @@ namespace RunTime.Datas.ValueObjects
     public class EditorCellTexture
     {
         public Texture texture;
+        public bool isObstacle;
     }
 }

@@ -1,3 +1,4 @@
+using Assets.Scripts.RunTime.Datas.ValueObjects;
 using RunTime.Datas.UnityObjects;
 using System.Linq;
 using UnityEngine;
@@ -31,13 +32,25 @@ public class GridGenerateController : MonoBehaviour
             for (int x = 0; x < _gridHeight; x++)
             {
                 Vector3 tilePosition = new(x * _tileSpacing, 0, y * _tileSpacing);
+                Vector3 objectPosition;
 
-                Instantiate(_tilePrefab, tilePosition, Quaternion.identity, _gridContainer);
+                ObjectDetail objectDetail;
+                if (editorCellTextures_SO.editorCellTextures[i].isObstacle)
+                {
+                    objectPosition = tilePosition;
+                    objectDetail = _objectDetails_SO.obstacleDetails.FirstOrDefault(a => a.texture == editorCellTextures_SO.editorCellTextures[i].texture);
+                }
+                else
+                {
+                    objectPosition = tilePosition + (Vector3.up * .5f);
+                    Instantiate(_tilePrefab, tilePosition, Quaternion.identity, _gridContainer);
+                    objectDetail = _objectDetails_SO.objectDetails.FirstOrDefault(a => a.texture == editorCellTextures_SO.editorCellTextures[i].texture);
+                }
 
-                GameObject newObject = _objectDetails_SO.objectDetails.FirstOrDefault(a => a.texture == editorCellTextures_SO.editorCellTextures[i].texture).gameObject;
+                GameObject newObject = objectDetail.gameObject;
                 if (newObject != null)
                 {
-                    Instantiate(newObject, tilePosition + (Vector3.up * .5f), Quaternion.identity, _gridContainer);
+                    Instantiate(newObject, objectPosition, Quaternion.identity, _gridContainer);
                 }
 
                 i++;

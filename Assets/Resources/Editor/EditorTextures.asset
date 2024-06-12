@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61b598fa98a4d4e4985d757511ab39ea, type: 3}
   m_Name: EditorTextures
   m_EditorClassIdentifier: 
-  cellInfos:
+  ObjectTextures:
   - texture: {fileID: 0}
   - texture: {fileID: 2800000, guid: 0155f537d15270b48b30c01266c705f8, type: 3}
   - texture: {fileID: 2800000, guid: 0de534f9bf1a00c4ebe6b2602860c5bc, type: 3}
   - texture: {fileID: 2800000, guid: f63830f4fb5ecdc4cabef146c10c8e3a, type: 3}
+  ObstacleTextures:
+  - texture: {fileID: 0}
+  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
