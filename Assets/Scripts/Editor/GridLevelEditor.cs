@@ -1,29 +1,33 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.PackageManager.UI;
 using UnityEditor;
 using UnityEngine;
-using System;
 using RunTime.Datas.UnityObjects;
-using System.Drawing.Printing;
 using RunTime.Datas.ValueObjects;
+using System;
+using log4net.Core;
 
 public class GridLevelEditor : EditorWindow
 {
-    private readonly int _gridRow = 9;
-    private readonly int _gridColumn = 9;
     private readonly float _cellSize = 35;
+    private int _gridRow;
+    private int _gridColumn;
     private bool _isFirstDone;
 
     private int _selectedCell;
     private int _selectedTexture;
+    private int _selectedLevel;
+    private int _selectedLevelBackup;
     private Texture[] _cellTextures;
     private Texture[] _editorTextures;
     private GUIStyle _cellStyle;
     EditorTextures_SO _cellInfos_SO;
-    EditorCellTextures_SO _editorCellTextures;
+    LevelCellInfos_SO _editorCellTextures;
     private bool _isSelectedObstaclePart;
-
+    private int _levelCount;
+    private string[] _levelNames;
+    private readonly string _separator = "-------------------------------------------------------------------------------------------" +
+      "-------------------------------------------------------------------------------------------" +
+      "-------------------------------------------------------------------------------------------";
 
     private int GetGridSize => _gridRow * _gridColumn;
 
@@ -39,14 +43,28 @@ public class GridLevelEditor : EditorWindow
         if (!_isFirstDone)
         {
             _isFirstDone = true;
+            GetGridSizeFromSO();
             _cellTextures = new Texture[GetGridSize];
             InitEditorTextures();
             InitCellStyle();
             InitGameCellInfos();
+            GetLevels();
         }
         GenerateGrid();
-        DetectSelectedGrid();
+        if (_selectedCell != -1)
+        {
+            DetectSelectedGrid();
+        }
+        if (_selectedLevel != _selectedLevelBackup)
+        {
+            Debug.Log("Level Changed");
+            _selectedLevelBackup = _selectedLevel;
+            OnChanceLevel();
+        }
+        Seperator();
 
+
+        EditorGUILayout.BeginHorizontal();
         if (GUILayout.Button("Get Objects"))
         {
             _isSelectedObstaclePart = false;
@@ -57,6 +75,7 @@ public class GridLevelEditor : EditorWindow
             _isSelectedObstaclePart = true;
             InitEditorTextures();
         }
+        EditorGUILayout.EndHorizontal();
 
         if (_isSelectedObstaclePart)
         {
@@ -68,26 +87,62 @@ public class GridLevelEditor : EditorWindow
         }
         _ = (Texture)EditorGUILayout.ObjectField(_editorTextures[_selectedTexture] != null ? _editorTextures[_selectedTexture].name : "Empty", _editorTextures[_selectedTexture], typeof(Texture), false);
 
+        Seperator();
+
+        #region Level Selector
+        EditorGUILayout.LabelField("Choose Level");
+
+        _selectedLevel = EditorGUILayout.Popup(_selectedLevel, _levelNames);
+        EditorGUILayout.LabelField("Selected Level: " + _levelNames[_selectedLevel]);
+
+        #endregion
+    }
+
+    private void GetGridSizeFromSO()
+    {
+        GridInfo gridInfo = Resources.Load<GridInfo_SO>("RunTime/GridInfo").gridInfo;
+        _gridColumn = gridInfo.columnSize;
+        _gridRow = gridInfo.rowSize;
+    }
+
+    private void GetLevels()
+    {
+        _levelCount = Resources.LoadAll<LevelCellInfos_SO>("RunTime/Levels").Length;
+        Debug.Log(_levelCount);
+        _levelNames = new string[_levelCount];
+
+        for (int i = 0; i < _levelCount; i++)
+        {
+            _levelNames[i] = $"Level {i}";
+        }
+    }
+    private void OnChanceLevel()
+    {
+        InitGameCellInfos();
     }
 
     private void InitGameCellInfos()
     {
-        _editorCellTextures = Resources.Load<EditorCellTextures_SO>("Editor/EditorCellTextures");
+        _editorCellTextures = Resources.Load<LevelCellInfos_SO>($"RunTime/Levels/Level {_selectedLevel}");
 
-        if (_editorCellTextures.editorCellTextures.Count == 0)
+
+        if (_editorCellTextures.levelCellInfos.Count == 0)
         {
-            _editorCellTextures.editorCellTextures = new List<EditorCellTexture>();
+            _editorCellTextures.levelCellInfos = new List<LevelCellInfo>();
 
             for (int i = 0; i < GetGridSize; i++)
             {
-                _editorCellTextures.editorCellTextures.Add(new());
+                _editorCellTextures.levelCellInfos.Add(new());
             }
+
+            ClearLevelData();
+
         }
         else
         {
             for (int i = 0; i < GetGridSize; i++)
             {
-                _cellTextures[i] = _editorCellTextures.editorCellTextures[i].texture;
+                _cellTextures[i] = _editorCellTextures.levelCellInfos[i].texture;
             }
         }
     }
@@ -117,13 +172,10 @@ public class GridLevelEditor : EditorWindow
 
     private void DetectSelectedGrid()
     {
-        if (_selectedCell != -1)
-        {
-            Texture texture = _editorTextures[_selectedTexture];
-            _cellTextures[_selectedCell] = texture;
-            _editorCellTextures.editorCellTextures[_selectedCell].texture = texture;
-            _editorCellTextures.editorCellTextures[_selectedCell].isObstacle = _selectedTexture != 0 && _isSelectedObstaclePart;
-        }
+        Texture texture = _editorTextures[_selectedTexture];
+        _cellTextures[_selectedCell] = texture;
+        _editorCellTextures.levelCellInfos[_selectedCell].texture = texture;
+        _editorCellTextures.levelCellInfos[_selectedCell].isObstacle = _selectedTexture != 0 && _isSelectedObstaclePart;
     }
 
     private void GenerateGrid()
@@ -137,5 +189,20 @@ public class GridLevelEditor : EditorWindow
             fixedWidth = _cellSize,
             fixedHeight = _cellSize,
         };
+    }
+    private void Seperator()
+    {
+        EditorGUILayout.LabelField(_separator, EditorStyles.toolbar);
+    }
+    private void ClearLevelData()
+    {
+        for (int i = 0; i < _cellTextures.Length; i++)
+        {
+            _cellTextures[i] = null;
+            _editorCellTextures.levelCellInfos[i].texture = null;
+            _editorCellTextures.levelCellInfos[i].isObstacle = false;
+        }
+
+
     }
 }

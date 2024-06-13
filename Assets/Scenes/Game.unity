@@ -166,7 +166,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 355144999}
-  - component: {fileID: 355145000}
+  - component: {fileID: 355145002}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -189,7 +189,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 149158586}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &355145000
+--- !u!114 &355145002
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -198,14 +198,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 355144998}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82fb978daf32e7040b02e1bf76276d27, type: 3}
+  m_Script: {fileID: 11500000, guid: 4dedc192fce9ae1408b1288be75f042b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tilePrefab: {fileID: 1119859512866088769, guid: 189967c12ac127c468fad266c9ce7da4, type: 3}
-  _gridContainer: {fileID: 1490540264}
-  _gridWidth: 9
-  _gridHeight: 9
-  _tileSpacing: 1.06
 --- !u!1 &709632634
 GameObject:
   m_ObjectHideFlags: 0
@@ -635,6 +630,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2089015056}
+  - component: {fileID: 2089015057}
   m_Layer: 0
   m_Name: Controllers
   m_TagString: Untagged
@@ -657,6 +653,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 149158586}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2089015057
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2089015055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82fb978daf32e7040b02e1bf76276d27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _tilePrefab: {fileID: 1119859512866088769, guid: 189967c12ac127c468fad266c9ce7da4, type: 3}
+  _gridContainer: {fileID: 1490540264}
+  _gridWidth: 9
+  _gridHeight: 9
+  _tileSpacing: 1.06
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
