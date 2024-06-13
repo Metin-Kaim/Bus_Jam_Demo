@@ -667,8 +667,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _tilePrefab: {fileID: 1119859512866088769, guid: 189967c12ac127c468fad266c9ce7da4, type: 3}
   _gridContainer: {fileID: 1490540264}
-  _gridWidth: 9
-  _gridHeight: 9
   _tileSpacing: 1.06
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

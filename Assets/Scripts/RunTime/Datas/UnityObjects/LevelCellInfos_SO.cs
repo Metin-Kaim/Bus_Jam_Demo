@@ -8,5 +8,6 @@ namespace RunTime.Datas.UnityObjects
     public class LevelCellInfos_SO : ScriptableObject
     {
         public List<LevelCellInfo> levelCellInfos;
+        public List<LevelBusInfo> levelBusInfos;
     }
 }
