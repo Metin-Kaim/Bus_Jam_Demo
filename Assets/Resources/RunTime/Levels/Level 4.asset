@@ -12,4 +12,166 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69b65966df9b6094280782d6aeb4cae1, type: 3}
   m_Name: Level 4
   m_EditorClassIdentifier: 
-  levelCellInfos: []
+  levelCellInfos:
+  - texture: {fileID: 0}
+    isObstacle: 0
+  - texture: {fileID: 0}
+    isObstacle: 0
+  - texture: {fileID: 0}
+    isObstacle: 0
+  - texture: {fileID: 0}
+    isObstacle: 0
+  - texture: {fileID: 0}
+    isObstacle: 0
+  - texture: {fileID: 0}
+    isObstacle: 0
+  - texture: {fileID: 0}
+    isObstacle: 0
+  - texture: {fileID: 0}
+    isObstacle: 0
+  - texture: {fileID: 0}
+    isObstacle: 0
+  - texture: {fileID: 0}
+    isObstacle: 0
+  - texture: {fileID: 0}
+    isObstacle: 0
+  - texture: {fileID: 0}
+    isObstacle: 0
+  - texture: {fileID: 0}
+    isObstacle: 0
+  - texture: {fileID: 0}
+    isObstacle: 0
+  - texture: {fileID: 0}
+    isObstacle: 0
+  - texture: {fileID: 2800000, guid: f63830f4fb5ecdc4cabef146c10c8e3a, type: 3}
+    isObstacle: 0
+  - texture: {fileID: 0}
+    isObstacle: 0
+  - texture: {fileID: 0}
+    isObstacle: 0
+  - texture: {fileID: 0}
+    isObstacle: 0
+  - texture: {fileID: 0}
+    isObstacle: 0
+  - texture: {fileID: 0}
+    isObstacle: 0
+  - texture: {fileID: 0}
+    isObstacle: 0
+  - texture: {fileID: 0}
+    isObstacle: 0
+  - texture: {fileID: 2800000, guid: f63830f4fb5ecdc4cabef146c10c8e3a, type: 3}
+    isObstacle: 0
+  - texture: {fileID: 0}
+    isObstacle: 0
+  - texture: {fileID: 0}
+    isObstacle: 0
+  - texture: {fileID: 0}
+    isObstacle: 0
+  - texture: {fileID: 0}
+    isObstacle: 0
+  - texture: {fileID: 0}
+    isObstacle: 0
+  - texture: {fileID: 0}
+    isObstacle: 0
+  - texture: {fileID: 0}
+    isObstacle: 0
+  - texture: {fileID: 2800000, guid: f63830f4fb5ecdc4cabef146c10c8e3a, type: 3}
+    isObstacle: 0
+  - texture: {fileID: 0}
+    isObstacle: 0
+  - texture: {fileID: 0}
+    isObstacle: 0
+  - texture: {fileID: 0}
+    isObstacle: 0
+  - texture: {fileID: 0}
+    isObstacle: 0
+  - texture: {fileID: 0}
+    isObstacle: 0
+  - texture: {fileID: 0}
+    isObstacle: 0
+  - texture: {fileID: 0}
+    isObstacle: 0
+  - texture: {fileID: 2800000, guid: f63830f4fb5ecdc4cabef146c10c8e3a, type: 3}
+    isObstacle: 0
+  - texture: {fileID: 0}
+    isObstacle: 0
+  - texture: {fileID: 0}
+    isObstacle: 0
+  - texture: {fileID: 0}
+    isObstacle: 0
+  - texture: {fileID: 0}
+    isObstacle: 0
+  - texture: {fileID: 0}
+    isObstacle: 0
+  - texture: {fileID: 0}
+    isObstacle: 0
+  - texture: {fileID: 0}
+    isObstacle: 0
+  - texture: {fileID: 2800000, guid: f63830f4fb5ecdc4cabef146c10c8e3a, type: 3}
+    isObstacle: 0
+  - texture: {fileID: 0}
+    isObstacle: 0
+  - texture: {fileID: 0}
+    isObstacle: 0
+  - texture: {fileID: 2800000, guid: f63830f4fb5ecdc4cabef146c10c8e3a, type: 3}
+    isObstacle: 0
+  - texture: {fileID: 0}
+    isObstacle: 0
+  - texture: {fileID: 0}
+    isObstacle: 0
+  - texture: {fileID: 0}
+    isObstacle: 0
+  - texture: {fileID: 0}
+    isObstacle: 0
+  - texture: {fileID: 2800000, guid: f63830f4fb5ecdc4cabef146c10c8e3a, type: 3}
+    isObstacle: 0
+  - texture: {fileID: 2800000, guid: f63830f4fb5ecdc4cabef146c10c8e3a, type: 3}
+    isObstacle: 0
+  - texture: {fileID: 2800000, guid: f63830f4fb5ecdc4cabef146c10c8e3a, type: 3}
+    isObstacle: 0
+  - texture: {fileID: 2800000, guid: f63830f4fb5ecdc4cabef146c10c8e3a, type: 3}
+    isObstacle: 0
+  - texture: {fileID: 2800000, guid: f63830f4fb5ecdc4cabef146c10c8e3a, type: 3}
+    isObstacle: 0
+  - texture: {fileID: 2800000, guid: f63830f4fb5ecdc4cabef146c10c8e3a, type: 3}
+    isObstacle: 0
+  - texture: {fileID: 0}
+    isObstacle: 0
+  - texture: {fileID: 0}
+    isObstacle: 0
+  - texture: {fileID: 0}
+    isObstacle: 0
+  - texture: {fileID: 0}
+    isObstacle: 0
+  - texture: {fileID: 0}
+    isObstacle: 0
+  - texture: {fileID: 0}
+    isObstacle: 0
+  - texture: {fileID: 0}
+    isObstacle: 0
+  - texture: {fileID: 2800000, guid: f63830f4fb5ecdc4cabef146c10c8e3a, type: 3}
+    isObstacle: 0
+  - texture: {fileID: 0}
+    isObstacle: 0
+  - texture: {fileID: 0}
+    isObstacle: 0
+  - texture: {fileID: 0}
+    isObstacle: 0
+  - texture: {fileID: 0}
+    isObstacle: 0
+  - texture: {fileID: 0}
+    isObstacle: 0
+  - texture: {fileID: 0}
+    isObstacle: 0
+  - texture: {fileID: 0}
+    isObstacle: 0
+  - texture: {fileID: 0}
+    isObstacle: 0
+  - texture: {fileID: 0}
+    isObstacle: 0
+  - texture: {fileID: 0}
+    isObstacle: 0
+  - texture: {fileID: 0}
+    isObstacle: 0
+  - texture: {fileID: 0}
+    isObstacle: 0
