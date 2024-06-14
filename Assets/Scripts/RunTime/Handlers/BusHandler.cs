@@ -11,6 +11,7 @@ namespace RunTime.Handlers
         [SerializeField] private EntityTypes _entityTypes;
 
         private int _objectCount;
+        private bool _isArrivedToCenter;
 
         public int ObjectCount
         {
@@ -25,6 +26,7 @@ namespace RunTime.Handlers
             }
         }
         public EntityTypes EntityTypes { get => _entityTypes; set => _entityTypes = value; }
+        public bool IsArrivedToCenter { get => _isArrivedToCenter; set => _isArrivedToCenter = value; }
 
         private void MoveBus()
         {
