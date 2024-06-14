@@ -850,6 +850,7 @@ GameObject:
   - component: {fileID: 1037835407}
   - component: {fileID: 1037835408}
   - component: {fileID: 1037835409}
+  - component: {fileID: 1037835410}
   m_Layer: 0
   m_Name: Signals
   m_TagString: Untagged
@@ -918,6 +919,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2c6f3775565fad94ba1ced11416dbc24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1037835410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1037835404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b3a97e11cc9c574989d9a008550ec5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1330049450
@@ -1211,6 +1224,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1721375478}
   - component: {fileID: 1721375479}
+  - component: {fileID: 1721375480}
   m_Layer: 0
   m_Name: Others
   m_TagString: Untagged
@@ -1252,6 +1266,18 @@ MonoBehaviour:
     color: {r: 1, g: 1, b: 0, a: 1}
   - entityType: 2
     color: {r: 0, g: 1, b: 0, a: 1}
+--- !u!114 &1721375480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1721375477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 097bf06556fb277448c754684187827d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1807684096 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9139373897089291274, guid: 76ea406465f3a6f4b92f6adb3adf4fd4, type: 3}
@@ -1482,6 +1508,7 @@ GameObject:
   - component: {fileID: 2089015057}
   - component: {fileID: 2089015058}
   - component: {fileID: 2089015059}
+  - component: {fileID: 2089015060}
   m_Layer: 0
   m_Name: Controllers
   m_TagString: Untagged
@@ -1516,7 +1543,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82fb978daf32e7040b02e1bf76276d27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tilePrefab: {fileID: 1119859512866088769, guid: 189967c12ac127c468fad266c9ce7da4, type: 3}
+  _tilePrefab: {fileID: 4652528024276282489, guid: 189967c12ac127c468fad266c9ce7da4, type: 3}
   _gridContainer: {fileID: 1490540264}
   _tileSpacing: 1.06
 --- !u!114 &2089015058
@@ -1548,6 +1575,18 @@ MonoBehaviour:
   _centerBusPoint: {fileID: 894112311}
   _leftSideBusPoint: {fileID: 595067478}
   buses: []
+--- !u!114 &2089015060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2089015055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca3a86e2368db5545a7174b44424cdf8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2089256054
 GameObject:
   m_ObjectHideFlags: 0
