@@ -177,6 +177,4 @@ MonoBehaviour:
     isObstacle: 1
   levelBusInfos:
   - busColorType: 2
-  - busColorType: 2
-  - busColorType: 1
   - busColorType: 0
