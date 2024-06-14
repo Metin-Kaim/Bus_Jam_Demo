@@ -20,7 +20,7 @@ public class GridLevelEditor : EditorWindow
     private Texture[] _editorTextures;
     private GUIStyle _cellStyle;
     EditorTextures_SO _cellInfos_SO;
-    LevelCellInfos_SO _editorCellTextures;
+    LevelInfos_SO _editorCellTextures;
     private bool _isSelectedObstaclePart;
     private int _levelCount;
     private string[] _levelNames;
@@ -171,7 +171,7 @@ public class GridLevelEditor : EditorWindow
 
     private void GetLevels()
     {
-        _levelCount = Resources.LoadAll<LevelCellInfos_SO>("RunTime/Levels").Length;
+        _levelCount = Resources.LoadAll<LevelInfos_SO>("RunTime/Levels").Length;
         
         _levelNames = new string[_levelCount];
 
@@ -187,7 +187,7 @@ public class GridLevelEditor : EditorWindow
 
     private void InitGameCellInfos()
     {
-        _editorCellTextures = Resources.Load<LevelCellInfos_SO>($"RunTime/Levels/Level {_selectedLevel}");
+        _editorCellTextures = Resources.Load<LevelInfos_SO>($"RunTime/Levels/Level {_selectedLevel}");
 
         busColors.Clear();
         _editorCellTextures.levelBusInfos ??= new List<LevelBusInfo>();
@@ -275,7 +275,7 @@ public class GridLevelEditor : EditorWindow
 
     private void CreateNewLevelData()
     {
-        LevelCellInfos_SO newLevelData = CreateInstance<LevelCellInfos_SO>();
+        LevelInfos_SO newLevelData = CreateInstance<LevelInfos_SO>();
 
         string path = $"Assets/Resources/RunTime/Levels/Level {_levelCount}.asset";
         AssetDatabase.CreateAsset(newLevelData, path);

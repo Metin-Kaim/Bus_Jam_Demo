@@ -2,6 +2,7 @@ using Assets.Scripts.RunTime.Datas.ValueObjects;
 using RunTime.Datas.UnityObjects;
 using RunTime.Datas.ValueObjects;
 using RunTime.Managers;
+using RunTime.Signals;
 using System.Linq;
 using UnityEngine;
 
@@ -14,21 +15,20 @@ public class GridGenerateController : MonoBehaviour
     int _gridWidth;
     int _gridHeight;
     ObjectDetails_SO _objectDetails_SO;
-    LevelCellInfos_SO editorCellTextures_SO;
-    int _currentLevelIndex;
+    LevelInfos_SO levelInfos;
 
     private void Awake()
     {
-        _currentLevelIndex = SaveManager.Instance.SaveCurrentLevelIndex;
         GridInfo gridInfo = Resources.Load<GridInfo_SO>("RunTime/GridInfo").gridInfo;
         _gridWidth = gridInfo.columnSize;
         _gridHeight = gridInfo.columnSize;
         _objectDetails_SO = Resources.Load<ObjectDetails_SO>("RunTime/ObjectDetails");
-        editorCellTextures_SO = Resources.Load<LevelCellInfos_SO>($"RunTime/Levels/Level {_currentLevelIndex}");
+
     }
 
     void Start()
     {
+        levelInfos = LevelSignals.Instance.onGetCurrentLevelInfos?.Invoke();
         GenerateGrid();
     }
 
@@ -42,19 +42,20 @@ public class GridGenerateController : MonoBehaviour
                 Vector3 objectPosition;
 
                 ObjectDetail objectDetail;
-                if (editorCellTextures_SO.levelCellInfos[i].isObstacle)
+                if (levelInfos.levelCellInfos[i].isObstacle)
                 {
                     objectPosition = tilePosition;
-                    objectDetail = _objectDetails_SO.obstacleDetails.FirstOrDefault(a => a.texture == editorCellTextures_SO.levelCellInfos[i].texture);
+                    objectDetail = _objectDetails_SO.obstacleDetails.FirstOrDefault(a => a.texture == levelInfos.levelCellInfos[i].texture);
                 }
                 else
                 {
                     objectPosition = tilePosition + (Vector3.up * .5f);
                     Instantiate(_tilePrefab, tilePosition, Quaternion.identity, _gridContainer);
-                    objectDetail = _objectDetails_SO.objectDetails.FirstOrDefault(a => a.texture == editorCellTextures_SO.levelCellInfos[i].texture);
+                    objectDetail = _objectDetails_SO.objectDetails.FirstOrDefault(a => a.texture == levelInfos.levelCellInfos[i].texture);
                 }
 
                 GameObject newObject = objectDetail.gameObject;
+
                 if (newObject != null)
                 {
                     Instantiate(newObject, objectPosition, Quaternion.identity, _gridContainer);
