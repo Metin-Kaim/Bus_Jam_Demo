@@ -6,6 +6,7 @@ using RunTime.Datas.ValueObjects;
 using RunTime.Enums;
 using System;
 using log4net.Core;
+using UnityEditor.AnimatedValues;
 
 public class GridLevelEditor : EditorWindow
 {
@@ -24,17 +25,19 @@ public class GridLevelEditor : EditorWindow
     EditorTextures_SO _cellInfos_SO;
     LevelInfos_SO _levelInfos;
     private bool _isSelectedObstaclePart;
+    private bool _isSelectedOtherPart;
     private int _levelCount;
     private string[] _levelNames;
     private readonly string _separator = "-------------------------------------------------------------------------------------------" +
       "-------------------------------------------------------------------------------------------" +
       "-------------------------------------------------------------------------------------------";
     List<EditorTexture> _entityTextures;
-    private List<EntityTypes> busColors = new();
+    private readonly List<EntityTypes> busColors = new();
     private Vector2 _scrollPosition = Vector2.zero;
-    private bool _isGridOpen;
+    private AnimBool _isGridOpen;
     private bool _isSlideGridToLeft;
     private string _gridState;
+    private Vector3 _rotationInfo;
 
     private int GetGridSize => _gridRow * _gridColumn;
 
@@ -43,7 +46,11 @@ public class GridLevelEditor : EditorWindow
     {
         GetWindow<GridLevelEditor>("Grid Level Editor");
     }
-
+    void OnEnable()
+    {
+        _isGridOpen = new AnimBool(true);
+        _isGridOpen.valueChanged.AddListener(Repaint);
+    }
     void OnGUI()
     {
         if (!_isFirstDone)
@@ -59,11 +66,11 @@ public class GridLevelEditor : EditorWindow
         }
         _scrollPosition = EditorGUILayout.BeginScrollView(_scrollPosition);
 
-        _isGridOpen = EditorGUILayout.ToggleLeft(_gridState, _isGridOpen);
+        _isGridOpen.target = EditorGUILayout.ToggleLeft(_gridState, _isGridOpen.target);
 
-        if (_isGridOpen)
+        if (EditorGUILayout.BeginFadeGroup(_isGridOpen.faded))
         {
-            _gridState = "Hide Grid (Visible)";
+            _gridState = "Show Grid";
             GenerateGrid();
 
             EditorGUI.BeginChangeCheck();
@@ -88,28 +95,63 @@ public class GridLevelEditor : EditorWindow
             {
                 _entityTextures = _cellInfos_SO.ObjectTextures;
                 _isSelectedObstaclePart = false;
+                _isSelectedOtherPart = false;
                 InitEditorTextures();
             }
             if (GUILayout.Button("Get Obstacles"))
             {
                 _entityTextures = _cellInfos_SO.ObstacleTextures;
-
                 _isSelectedObstaclePart = true;
+                _isSelectedOtherPart = false;
+                InitEditorTextures();
+            }
+            if (GUILayout.Button("Get Others"))
+            {
+                _entityTextures = _cellInfos_SO.OtherTextures;
+
+                _isSelectedOtherPart = true;
+                _isSelectedObstaclePart = false;
                 InitEditorTextures();
             }
             EditorGUILayout.EndHorizontal();
 
-            _selectedTexture = EditorGUILayout.IntSlider(_selectedTexture, 0, _entityTextures.Count - 1);
+            if (_entityTextures.Count != 0)
+            {
+                _selectedTexture = EditorGUILayout.IntSlider(_selectedTexture, 0, _entityTextures.Count - 1);
 
-            _ = (Texture)EditorGUILayout.ObjectField(_editorTextures[_selectedTexture] != null ? _editorTextures[_selectedTexture].name : "Empty", _editorTextures[_selectedTexture], typeof(Texture), false);
+                _ = (Texture)EditorGUILayout.ObjectField(_editorTextures[_selectedTexture] != null ? _editorTextures[_selectedTexture].name : "Empty", _editorTextures[_selectedTexture], typeof(Texture), false);
+
+                if (_isSelectedOtherPart || _isSelectedObstaclePart)
+                {
+                    EditorGUILayout.LabelField("Chose Rotation: (Default => Up) (-90, 0, 90, 180)");
+                    EditorGUILayout.BeginHorizontal();
+                    if (GUILayout.Button("Left"))
+                    {
+                        _rotationInfo = new(0, -90, 0);
+                    }
+                    if (GUILayout.Button("Right"))
+                    {
+                        _rotationInfo = new(0, 90, 0);
+                    }
+                    if (GUILayout.Button("Up"))
+                    {
+                        _rotationInfo = new(0, 0, 0);
+                    }
+                    if (GUILayout.Button("Down"))
+                    {
+                        _rotationInfo = new(0, 180, 0);
+                    }
+                    EditorGUILayout.EndHorizontal();
+                }
+            }
+            else
+            {
+                EditorGUILayout.LabelField("There is no texture to show.");
+                EditorGUILayout.LabelField("Please attach some textures to \"Resources/Editor/EditorTextures\"");
+            }
             #endregion
         }
-        else
-        {
-            _gridState = "Show Grid (Hidden)";
-        }
-
-       
+        EditorGUILayout.EndFadeGroup();
 
         #region Detection Process
         if (_selectedCell != -1)
@@ -123,7 +165,7 @@ public class GridLevelEditor : EditorWindow
         }
         #endregion
 
-     
+
 
         Seperator();
 
@@ -256,6 +298,10 @@ public class GridLevelEditor : EditorWindow
         {
             entityTextures = _cellInfos_SO.ObstacleTextures;
         }
+        else if (_isSelectedOtherPart)
+        {
+            entityTextures = _cellInfos_SO.OtherTextures;
+        }
         else
         {
             entityTextures = _cellInfos_SO.ObjectTextures;
@@ -274,7 +320,8 @@ public class GridLevelEditor : EditorWindow
         Texture texture = _editorTextures[_selectedTexture];
         _cellTextures[_selectedCell] = texture;
         _levelInfos.levelCellInfos[_selectedCell].texture = texture;
-        _levelInfos.levelCellInfos[_selectedCell].isObstacle = _selectedTexture != 0 && _isSelectedObstaclePart;
+        _levelInfos.levelCellInfos[_selectedCell].isObstacle = _selectedTexture != 0 && (_isSelectedObstaclePart || _isSelectedOtherPart);
+        _levelInfos.levelCellInfos[_selectedCell].rotation = _rotationInfo;
         AssetDatabase.SaveAssets();
     }
 

@@ -24,3 +24,5 @@ MonoBehaviour:
   obstacleDetails:
   - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
     gameObject: {fileID: 331215758570261529, guid: dd920f4adebea2c4f93b74f17ace7748, type: 3}
+  - texture: {fileID: 2800000, guid: 4c2ccd18980fd8447be5b9880a7e94ea, type: 3}
+    gameObject: {fileID: 6026609966376319638, guid: a5a635f41a26fae4bad7e7cbd390b302, type: 3}

@@ -45,7 +45,7 @@ namespace RunTime.Controllers
 
         private void GenerateGrid()
         {
-            
+
             for (int i = 0, j = 0, y = _gridWidth; y > 0; y--)
             {
                 for (int x = 0; x < _gridHeight; x++)
@@ -74,6 +74,7 @@ namespace RunTime.Controllers
                     if (newObject != null)
                     {
                         GameObject gameObject1 = Instantiate(newObject, objectPosition, Quaternion.identity, _gridContainer);
+                        gameObject1.transform.rotation = Quaternion.Euler(_levelInfos.levelCellInfos[i].rotation);
                         if (tileHandler != null)
                         {
                             ObjectHandler objectHandler = gameObject1.GetComponent<ObjectHandler>();

@@ -7,5 +7,6 @@ namespace RunTime.Datas.ValueObjects
     {
         public Texture texture;
         public bool isObstacle;
+        public Vector3 rotation;
     }
 }

@@ -9,5 +9,6 @@ namespace RunTime.Datas.UnityObjects
     {
         public List<EditorTexture> ObjectTextures;
         public List<EditorTexture> ObstacleTextures;
+        public List<EditorTexture> OtherTextures;
     }
 }
