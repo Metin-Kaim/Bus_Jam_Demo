@@ -1,5 +1,4 @@
-﻿using Assets.Scripts.RunTime.Handlers;
-using RunTime.Signals;
+﻿using RunTime.Signals;
 using UnityEngine;
 
 namespace RunTime.Handlers

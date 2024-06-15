@@ -178,3 +178,4 @@ MonoBehaviour:
   levelBusInfos:
   - busColorType: 0
   - busColorType: 2
+  isSlideGridToLeft: 1

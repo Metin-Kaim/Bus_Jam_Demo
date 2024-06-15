@@ -4,6 +4,8 @@ using UnityEngine;
 using RunTime.Datas.UnityObjects;
 using RunTime.Datas.ValueObjects;
 using RunTime.Enums;
+using System;
+using log4net.Core;
 
 public class GridLevelEditor : EditorWindow
 {
@@ -20,7 +22,7 @@ public class GridLevelEditor : EditorWindow
     private Texture[] _editorTextures;
     private GUIStyle _cellStyle;
     EditorTextures_SO _cellInfos_SO;
-    LevelInfos_SO _editorCellTextures;
+    LevelInfos_SO _levelInfos;
     private bool _isSelectedObstaclePart;
     private int _levelCount;
     private string[] _levelNames;
@@ -30,6 +32,7 @@ public class GridLevelEditor : EditorWindow
     List<EditorTexture> _entityTextures;
     private List<EntityTypes> busColors = new();
     private Vector2 _scrollPosition = Vector2.zero;
+    private bool _isSlideGridToLeft;
 
     private int GetGridSize => _gridRow * _gridColumn;
 
@@ -53,6 +56,13 @@ public class GridLevelEditor : EditorWindow
             _entityTextures = _cellInfos_SO.ObjectTextures;
         }
         GenerateGrid();
+
+        EditorGUI.BeginChangeCheck();
+        _isSlideGridToLeft = EditorGUILayout.ToggleLeft("Slide Grid To Left", _isSlideGridToLeft);
+        if (EditorGUI.EndChangeCheck())
+        {
+            OnChangeSlideGrid();
+        }
 
         _scrollPosition = EditorGUILayout.BeginScrollView(_scrollPosition);
 
@@ -107,7 +117,7 @@ public class GridLevelEditor : EditorWindow
         if (GUILayout.Button("Add Bus Color"))
         {
             busColors.Add(EntityTypes.Red);
-            _editorCellTextures.levelBusInfos.Add(new() { busColorType = EntityTypes.Red });
+            _levelInfos.levelBusInfos.Add(new() { busColorType = EntityTypes.Red });
         }
 
         for (int i = 0; i < busColors.Count; i++)
@@ -118,11 +128,11 @@ public class GridLevelEditor : EditorWindow
             {
                 busColors[i] = EntityTypes.Red;
             }
-            _editorCellTextures.levelBusInfos[i].busColorType = busColors[i];
+            _levelInfos.levelBusInfos[i].busColorType = busColors[i];
             if (GUILayout.Button("Remove"))
             {
                 busColors.RemoveAt(i);
-                _editorCellTextures.levelBusInfos.RemoveAt(i);
+                _levelInfos.levelBusInfos.RemoveAt(i);
             }
             EditorGUILayout.EndHorizontal();
         }
@@ -162,6 +172,11 @@ public class GridLevelEditor : EditorWindow
         EditorGUILayout.EndScrollView();
     }
 
+    private void OnChangeSlideGrid()
+    {
+        _levelInfos.isSlideGridToLeft = _isSlideGridToLeft;
+    }
+
     private void GetGridSizeFromSO()
     {
         GridInfo gridInfo = Resources.Load<GridInfo_SO>("RunTime/GridInfo").gridInfo;
@@ -172,7 +187,7 @@ public class GridLevelEditor : EditorWindow
     private void GetLevels()
     {
         _levelCount = Resources.LoadAll<LevelInfos_SO>("RunTime/Levels").Length;
-        
+
         _levelNames = new string[_levelCount];
 
         for (int i = 0; i < _levelCount; i++)
@@ -187,18 +202,18 @@ public class GridLevelEditor : EditorWindow
 
     private void InitGameCellInfos()
     {
-        _editorCellTextures = Resources.Load<LevelInfos_SO>($"RunTime/Levels/Level {_selectedLevel}");
+        _levelInfos = Resources.Load<LevelInfos_SO>($"RunTime/Levels/Level {_selectedLevel}");
 
         busColors.Clear();
-        _editorCellTextures.levelBusInfos ??= new List<LevelBusInfo>();
+        _levelInfos.levelBusInfos ??= new List<LevelBusInfo>();
+        _isSlideGridToLeft = _levelInfos.isSlideGridToLeft;
 
-
-        if (_editorCellTextures.levelCellInfos == null || _editorCellTextures.levelCellInfos.Count == 0)
+        if (_levelInfos.levelCellInfos == null || _levelInfos.levelCellInfos.Count == 0)
         {
-            _editorCellTextures.levelCellInfos = new List<LevelCellInfo>();
+            _levelInfos.levelCellInfos = new List<LevelCellInfo>();
             for (int i = 0; i < GetGridSize; i++)
             {
-                _editorCellTextures.levelCellInfos.Add(new());
+                _levelInfos.levelCellInfos.Add(new());
             }
 
             ClearLevelData();
@@ -207,11 +222,11 @@ public class GridLevelEditor : EditorWindow
         {
             for (int i = 0; i < GetGridSize; i++)
             {
-                _cellTextures[i] = _editorCellTextures.levelCellInfos[i].texture;
+                _cellTextures[i] = _levelInfos.levelCellInfos[i].texture;
             }
-            for (int i = 0; i < _editorCellTextures.levelBusInfos.Count; i++)
+            for (int i = 0; i < _levelInfos.levelBusInfos.Count; i++)
             {
-                busColors.Add(_editorCellTextures.levelBusInfos[i].busColorType);
+                busColors.Add(_levelInfos.levelBusInfos[i].busColorType);
             }
         }
     }
@@ -242,8 +257,8 @@ public class GridLevelEditor : EditorWindow
     {
         Texture texture = _editorTextures[_selectedTexture];
         _cellTextures[_selectedCell] = texture;
-        _editorCellTextures.levelCellInfos[_selectedCell].texture = texture;
-        _editorCellTextures.levelCellInfos[_selectedCell].isObstacle = _selectedTexture != 0 && _isSelectedObstaclePart;
+        _levelInfos.levelCellInfos[_selectedCell].texture = texture;
+        _levelInfos.levelCellInfos[_selectedCell].isObstacle = _selectedTexture != 0 && _isSelectedObstaclePart;
         AssetDatabase.SaveAssets();
     }
 
@@ -268,8 +283,8 @@ public class GridLevelEditor : EditorWindow
         for (int i = 0; i < _cellTextures.Length; i++)
         {
             _cellTextures[i] = null;
-            _editorCellTextures.levelCellInfos[i].texture = null;
-            _editorCellTextures.levelCellInfos[i].isObstacle = false;
+            _levelInfos.levelCellInfos[i].texture = null;
+            _levelInfos.levelCellInfos[i].isObstacle = false;
         }
     }
 

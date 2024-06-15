@@ -2,13 +2,11 @@
 using RunTime.Abstracts;
 using RunTime.Controllers;
 using RunTime.Enums;
-using RunTime.Handlers;
 using RunTime.Signals;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Scripts.RunTime.Handlers
+namespace RunTime.Handlers
 {
     public class ObjectHandler : MonoBehaviour, IEntityTypes
     {

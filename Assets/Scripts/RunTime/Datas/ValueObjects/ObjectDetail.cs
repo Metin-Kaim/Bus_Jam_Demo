@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Assets.Scripts.RunTime.Datas.ValueObjects
+namespace RunTime.Datas.ValueObjects
 {
     [System.Serializable]
     public struct ObjectDetail

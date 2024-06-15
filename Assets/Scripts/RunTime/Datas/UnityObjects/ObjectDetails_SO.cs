@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.RunTime.Datas.ValueObjects;
+﻿using RunTime.Datas.ValueObjects;
 using System.Collections.Generic;
 using UnityEngine;
 

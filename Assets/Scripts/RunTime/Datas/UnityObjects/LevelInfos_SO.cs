@@ -9,5 +9,6 @@ namespace RunTime.Datas.UnityObjects
     {
         public List<LevelCellInfo> levelCellInfos;
         public List<LevelBusInfo> levelBusInfos;
+        public bool isSlideGridToLeft;
     }
 }

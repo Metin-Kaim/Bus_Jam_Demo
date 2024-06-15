@@ -1,13 +1,10 @@
-using Assets.Scripts.RunTime.Datas.ValueObjects;
-using Assets.Scripts.RunTime.Handlers;
 using RunTime.Datas.UnityObjects;
 using RunTime.Datas.ValueObjects;
 using RunTime.Handlers;
 using RunTime.Signals;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-
+//.75f
 namespace RunTime.Controllers
 {
     public class GridGenerateController : MonoBehaviour
@@ -19,14 +16,15 @@ namespace RunTime.Controllers
         int _gridWidth;
         int _gridHeight;
         ObjectDetails_SO _objectDetails_SO;
-        LevelInfos_SO levelInfos;
-        TileHandler[,] _gridTiles = new TileHandler[9, 9];
+        LevelInfos_SO _levelInfos;
+        TileHandler[,] _gridTiles;
 
         private void Awake()
         {
             GridInfo gridInfo = Resources.Load<GridInfo_SO>("RunTime/GridInfo").gridInfo;
             _gridWidth = gridInfo.columnSize;
             _gridHeight = gridInfo.columnSize;
+            _gridTiles = new TileHandler[_gridWidth, _gridHeight];
             _objectDetails_SO = Resources.Load<ObjectDetails_SO>("RunTime/ObjectDetails");
         }
 
@@ -41,12 +39,13 @@ namespace RunTime.Controllers
 
         void Start()
         {
-            levelInfos = LevelSignals.Instance.onGetCurrentLevelInfos?.Invoke();
+            _levelInfos = LevelSignals.Instance.onGetCurrentLevelInfos?.Invoke();
             GenerateGrid();
         }
 
         private void GenerateGrid()
         {
+            
             for (int i = 0, j = 0, y = _gridWidth; y > 0; y--)
             {
                 for (int x = 0; x < _gridHeight; x++)
@@ -55,10 +54,10 @@ namespace RunTime.Controllers
                     Vector3 objectPosition;
                     TileHandler tileHandler = null;
                     ObjectDetail objectDetail;
-                    if (levelInfos.levelCellInfos[i].isObstacle)
+                    if (_levelInfos.levelCellInfos[i].isObstacle)
                     {
                         objectPosition = tilePosition;
-                        objectDetail = _objectDetails_SO.obstacleDetails.FirstOrDefault(a => a.texture == levelInfos.levelCellInfos[i].texture);
+                        objectDetail = _objectDetails_SO.obstacleDetails.FirstOrDefault(a => a.texture == _levelInfos.levelCellInfos[i].texture);
                     }
                     else
                     {
@@ -67,7 +66,7 @@ namespace RunTime.Controllers
                         tileHandler.Row = (byte)j;
                         tileHandler.Col = (byte)x;
                         _gridTiles[j, x] = tileHandler;
-                        objectDetail = _objectDetails_SO.objectDetails.FirstOrDefault(a => a.texture == levelInfos.levelCellInfos[i].texture);
+                        objectDetail = _objectDetails_SO.objectDetails.FirstOrDefault(a => a.texture == _levelInfos.levelCellInfos[i].texture);
                     }
 
                     GameObject newObject = objectDetail.gameObject;
@@ -86,6 +85,10 @@ namespace RunTime.Controllers
                     i++;
                 }
                 j++;
+            }
+            if (_levelInfos.isSlideGridToLeft)
+            {
+                _gridContainer.position = new(_gridContainer.position.x - .75f, _gridContainer.position.y, _gridContainer.position.z);
             }
         }
     }
