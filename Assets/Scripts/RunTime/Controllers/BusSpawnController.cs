@@ -51,7 +51,15 @@ namespace RunTime.Controllers
 
         private void OnSpawnBus(BusHandler oldBus)
         {
+
             _busMovementController.buses.Remove(oldBus);
+
+            if (_busMovementController.buses.Count <= 0)
+            {
+                CoreGameSignals.Instance.onWin?.Invoke();
+                return;
+            }
+
             SpawnBus();
             _busMovementController.MoveTheBuses();
 

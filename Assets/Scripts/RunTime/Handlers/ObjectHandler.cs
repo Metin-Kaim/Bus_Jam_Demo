@@ -1,9 +1,11 @@
 ﻿using DG.Tweening;
 using RunTime.Abstracts;
+using RunTime.Controllers;
 using RunTime.Enums;
 using RunTime.Handlers;
 using RunTime.Signals;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.RunTime.Handlers
@@ -34,25 +36,47 @@ namespace Assets.Scripts.RunTime.Handlers
                 _shakeTween ??= transform.DOShakePosition(.2f, .2f, 5).OnComplete(() => _shakeTween = null);
                 return;
             }
+            else if (!(bool)InputSignals.Instance.onGetIsClickable?.Invoke())
+            {
+                return;
+            }
 
             _currentTileHandler.OpenAccessibleObjects();
 
+            List<Coordinate> exitPath = GridSignals.Instance.onGetPathToExit?.Invoke(_currentTileHandler.Row, _currentTileHandler.Col);
+            TileHandler[,] tileHandlers = GridSignals.Instance.onGetGridTiles?.Invoke();
             _currentTileHandler.CurrentObjectHandler = null;
             _currentTileHandler = null;
 
-            bool isMovedToBus = MoveToBus();
+            Sequence moveSeq = DOTween.Sequence();
 
-            if (isMovedToBus) return;
+            foreach (Coordinate coord in exitPath)
+            {
+                Vector3 position = tileHandlers[coord.x, coord.y].transform.position;
+                moveSeq.Append(transform.DOMove(new Vector3(position.x, transform.position.y, position.z), .1f));
+            }
+            moveSeq.AppendCallback(() =>
+            {
+                bool isMovedToBus = MoveToBus();
 
-            MoveToStock();
+                if (isMovedToBus) return;
+
+                MoveToStock();
+            });
         }
         public bool MoveToBus()
         {
             BusHandler _currentBusHandler = BusSignals.Instance.onGetCurrentBus?.Invoke();
 
+            if (_currentBusHandler == null)
+            {
+                print("not bus");
+return false;
+            }
+
             if (_currentBusHandler.EntityTypes == _entityTypes && _currentBusHandler.IsArrivedToCenter)
             {
-                transform.DOMove(new(_currentBusHandler.transform.position.x, transform.position.y, _currentBusHandler.transform.position.z), 1).OnComplete(() =>
+                transform.DOMove(new(_currentBusHandler.transform.position.x, transform.position.y, _currentBusHandler.transform.position.z), .1f).OnComplete(() =>
                 {
                     _currentBusHandler.IncreaseObjectCount();
                     Destroy(gameObject);
@@ -63,14 +87,15 @@ namespace Assets.Scripts.RunTime.Handlers
         }
         private void MoveToStock()
         {
+            print("Stock");
             StockHandler stockHandler = StockSignals.Instance.onGetAvailableStock?.Invoke();
-
+            print(stockHandler.name);
             _currentStockHandler = stockHandler;
             stockHandler.CurrentObjectHandler = this;
 
             if (stockHandler != null)
             {
-                transform.DOMove(new(stockHandler.transform.position.x, transform.position.y, stockHandler.transform.position.z), 1);
+                transform.DOMove(new(stockHandler.transform.position.x, transform.position.y, stockHandler.transform.position.z), .1f);
             }
         }
 

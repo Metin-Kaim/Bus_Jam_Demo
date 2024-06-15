@@ -21,15 +21,23 @@ namespace Assets.Scripts.RunTime.Managers
         private void OnEnable()
         {
             LevelSignals.Instance.onGetCurrentLevelInfos += OnGetCurrentLevelInfos;
+            CoreGameSignals.Instance.onWin += IncreaseLevelIndex;
         }
         private void OnDisable()
         {
             LevelSignals.Instance.onGetCurrentLevelInfos -= OnGetCurrentLevelInfos;
+            CoreGameSignals.Instance.onWin -= IncreaseLevelIndex;
         }
 
         private LevelInfos_SO OnGetCurrentLevelInfos()
         {
             return _levelInfos;
+        }
+
+        public void IncreaseLevelIndex()
+        {
+            SaveManager.Instance.SaveCurrentLevelIndex++;
+            print(SaveManager.Instance.SaveCurrentLevelIndex);
         }
     }
 }

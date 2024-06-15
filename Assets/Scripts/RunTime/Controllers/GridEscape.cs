@@ -30,10 +30,12 @@ namespace RunTime.Controllers
         private void OnEnable()
         {
             GridSignals.Instance.onGetActiveObjectCoordinates += () => escapePaths;
+            GridSignals.Instance.onGetPathToExit += FindPathToFirstRow;
         }
         private void OnDisable()
         {
             GridSignals.Instance.onGetActiveObjectCoordinates -= () => escapePaths;
+            GridSignals.Instance.onGetPathToExit -= FindPathToFirstRow;
         }
 
         private void Start()
@@ -57,20 +59,14 @@ namespace RunTime.Controllers
                 }
                 cells += "\n";
             }
-            print(cells);
 
             // Çıkış yollarını bul
-            escapePaths = GetObjectsWithEscapePath(grid);
+            escapePaths = GetObjectsWithEscapePath();
 
-            // Çıkış yolu olan objeleri yazdır
-            foreach (var obj in escapePaths)
-            {
-                Debug.Log($"Obj x: {obj.x}, y: {obj.y} çıkış yolu var.");
-            }
         }
 
         // Grid için BFS algoritması
-        public bool IsPathToFirstRow(int[,] grid, int startX, int startY)
+        public bool IsPathToFirstRow(int startX, int startY)
         {
             int rows = grid.GetLength(0);
             int cols = grid.GetLength(1);
@@ -114,7 +110,7 @@ namespace RunTime.Controllers
         }
 
         // Tüm objeler için çıkış yolu olanları bulma
-        public List<Coordinate> GetObjectsWithEscapePath(int[,] grid)
+        public List<Coordinate> GetObjectsWithEscapePath()
         {
             List<Coordinate> objectsWithPath = new List<Coordinate>();
             int rows = grid.GetLength(0);
@@ -127,7 +123,7 @@ namespace RunTime.Controllers
                     // Grid'de obje (2) bulunan hücreleri kontrol et
                     if (grid[x, y] == 2)
                     {
-                        if (IsPathToFirstRow(grid, x, y))
+                        if (IsPathToFirstRow(x, y))
                         {
                             objectsWithPath.Add(new Coordinate(x, y));
                         }
@@ -136,6 +132,63 @@ namespace RunTime.Controllers
             }
 
             return objectsWithPath;
+        }
+
+        private List<Coordinate> FindPathToFirstRow(int startX, int startY)
+        {
+            int rows = grid.GetLength(0);
+            int cols = grid.GetLength(1);
+            bool[,] visited = new bool[rows, cols];
+            Coordinate[,] parents = new Coordinate[rows, cols];
+            Queue<Coordinate> queue = new();
+            List<Coordinate> path = new();
+
+            // Başlangıç koordinatını kuyruğa ekleyin
+            queue.Enqueue(new Coordinate(startX, startY));
+            visited[startX, startY] = true;
+            parents[startX, startY] = new Coordinate(-1, -1); // Başlangıç koordinatının ebeveyni yok
+
+            // Hareket yönleri (yukarı, aşağı, sol, sağ)
+            int[] dx = { -1, 1, 0, 0 };
+            int[] dy = { 0, 0, -1, 1 };
+
+            while (queue.Count > 0)
+            {
+                Coordinate current = queue.Dequeue();
+
+                // İlk satıra ulaşıldıysa
+                if (current.x == 0)
+                {
+                    // Path'i geri takip ederek oluştur
+                    while (current.x != -1 && current.y != -1)
+                    {
+                        path.Add(current);
+                        current = parents[current.x, current.y];
+                    }
+                    path.Reverse(); // Doğru sıraya koymak için ters çevir
+
+                    path.RemoveAt(0); // Remove first coordinate, it's itself coordinate
+                    grid[startX, startY] = 0;
+                    return path;
+                }
+
+                // Tüm komşu hücreleri kontrol edin
+                for (int i = 0; i < 4; i++)
+                {
+                    int newX = current.x + dx[i];
+                    int newY = current.y + dy[i];
+
+                    // Grid sınırları içinde mi ve ziyaret edilmemiş mi ve engel değil mi ve obje değil mi
+                    if (newX >= 0 && newX < rows && newY >= 0 && newY < cols && !visited[newX, newY] && grid[newX, newY] == 0)
+                    {
+                        queue.Enqueue(new Coordinate(newX, newY));
+                        visited[newX, newY] = true;
+                        parents[newX, newY] = current;
+                    }
+                }
+            }
+
+            return path; // Ulaşamazsa boş liste döndür
         }
     }
 }
