@@ -19,22 +19,6 @@ MonoBehaviour:
     isObstacle: 1
   - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
     isObstacle: 1
-  - texture: {fileID: 2800000, guid: f63830f4fb5ecdc4cabef146c10c8e3a, type: 3}
-    isObstacle: 0
-  - texture: {fileID: 2800000, guid: 0de534f9bf1a00c4ebe6b2602860c5bc, type: 3}
-    isObstacle: 0
-  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
-    isObstacle: 1
-  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
-    isObstacle: 1
-  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
-    isObstacle: 1
-  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
-    isObstacle: 1
-  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
-    isObstacle: 1
-  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
-    isObstacle: 1
   - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
     isObstacle: 1
   - texture: {fileID: 2800000, guid: 0de534f9bf1a00c4ebe6b2602860c5bc, type: 3}
@@ -61,6 +45,22 @@ MonoBehaviour:
     isObstacle: 0
   - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
     isObstacle: 1
+  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
+    isObstacle: 1
+  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
+    isObstacle: 1
+  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
+    isObstacle: 1
+  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
+    isObstacle: 1
+  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
+    isObstacle: 1
+  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
+    isObstacle: 1
+  - texture: {fileID: 2800000, guid: 0de534f9bf1a00c4ebe6b2602860c5bc, type: 3}
+    isObstacle: 0
+  - texture: {fileID: 2800000, guid: f63830f4fb5ecdc4cabef146c10c8e3a, type: 3}
+    isObstacle: 0
   - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
     isObstacle: 1
   - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
@@ -178,3 +178,4 @@ MonoBehaviour:
   levelBusInfos:
   - busColorType: 1
   - busColorType: 0
+  isSlideGridToLeft: 1
