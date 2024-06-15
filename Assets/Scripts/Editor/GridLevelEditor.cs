@@ -32,7 +32,9 @@ public class GridLevelEditor : EditorWindow
     List<EditorTexture> _entityTextures;
     private List<EntityTypes> busColors = new();
     private Vector2 _scrollPosition = Vector2.zero;
+    private bool _isGridOpen;
     private bool _isSlideGridToLeft;
+    private string _gridState;
 
     private int GetGridSize => _gridRow * _gridColumn;
 
@@ -55,16 +57,59 @@ public class GridLevelEditor : EditorWindow
             GetLevels();
             _entityTextures = _cellInfos_SO.ObjectTextures;
         }
-        GenerateGrid();
+        _scrollPosition = EditorGUILayout.BeginScrollView(_scrollPosition);
 
-        EditorGUI.BeginChangeCheck();
-        _isSlideGridToLeft = EditorGUILayout.ToggleLeft("Slide Grid To Left", _isSlideGridToLeft);
-        if (EditorGUI.EndChangeCheck())
+        _isGridOpen = EditorGUILayout.ToggleLeft(_gridState, _isGridOpen);
+
+        if (_isGridOpen)
         {
-            OnChangeSlideGrid();
+            _gridState = "Hide Grid (Visible)";
+            GenerateGrid();
+
+            EditorGUI.BeginChangeCheck();
+            _isSlideGridToLeft = EditorGUILayout.ToggleLeft("Slide Grid To Left", _isSlideGridToLeft);
+            if (EditorGUI.EndChangeCheck())
+            {
+                OnChangeSlideGrid();
+            }
+
+            Seperator();
+
+            if (GUILayout.Button("Clear Grid"))
+            {
+                ClearLevelData();
+            }
+
+            Seperator();
+
+            #region Entity Selection
+            EditorGUILayout.BeginHorizontal();
+            if (GUILayout.Button("Get Objects"))
+            {
+                _entityTextures = _cellInfos_SO.ObjectTextures;
+                _isSelectedObstaclePart = false;
+                InitEditorTextures();
+            }
+            if (GUILayout.Button("Get Obstacles"))
+            {
+                _entityTextures = _cellInfos_SO.ObstacleTextures;
+
+                _isSelectedObstaclePart = true;
+                InitEditorTextures();
+            }
+            EditorGUILayout.EndHorizontal();
+
+            _selectedTexture = EditorGUILayout.IntSlider(_selectedTexture, 0, _entityTextures.Count - 1);
+
+            _ = (Texture)EditorGUILayout.ObjectField(_editorTextures[_selectedTexture] != null ? _editorTextures[_selectedTexture].name : "Empty", _editorTextures[_selectedTexture], typeof(Texture), false);
+            #endregion
+        }
+        else
+        {
+            _gridState = "Show Grid (Hidden)";
         }
 
-        _scrollPosition = EditorGUILayout.BeginScrollView(_scrollPosition);
+       
 
         #region Detection Process
         if (_selectedCell != -1)
@@ -78,36 +123,7 @@ public class GridLevelEditor : EditorWindow
         }
         #endregion
 
-        Seperator();
-
-        if (GUILayout.Button("Clear Grid"))
-        {
-            ClearLevelData();
-        }
-
-        Seperator();
-
-        #region Entity Selection
-        EditorGUILayout.BeginHorizontal();
-        if (GUILayout.Button("Get Objects"))
-        {
-            _entityTextures = _cellInfos_SO.ObjectTextures;
-            _isSelectedObstaclePart = false;
-            InitEditorTextures();
-        }
-        if (GUILayout.Button("Get Obstacles"))
-        {
-            _entityTextures = _cellInfos_SO.ObstacleTextures;
-
-            _isSelectedObstaclePart = true;
-            InitEditorTextures();
-        }
-        EditorGUILayout.EndHorizontal();
-
-        _selectedTexture = EditorGUILayout.IntSlider(_selectedTexture, 0, _entityTextures.Count - 1);
-
-        _ = (Texture)EditorGUILayout.ObjectField(_editorTextures[_selectedTexture] != null ? _editorTextures[_selectedTexture].name : "Empty", _editorTextures[_selectedTexture], typeof(Texture), false);
-        #endregion
+     
 
         Seperator();
 
