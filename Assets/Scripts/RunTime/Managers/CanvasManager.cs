@@ -1,5 +1,6 @@
 using RunTime.Signals;
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,6 +9,12 @@ namespace RunTime.Managers
     public class CanvasManager : MonoBehaviour
     {
         [SerializeField] GameObject _gameOverPanel;
+        [SerializeField] TextMeshProUGUI _levelTxt;
+
+        private void Start()
+        {
+            _levelTxt.text = $"Level {SaveManager.Instance.SaveCurrentLevelIndex + 1}";
+        }
 
         private void OnEnable()
         {

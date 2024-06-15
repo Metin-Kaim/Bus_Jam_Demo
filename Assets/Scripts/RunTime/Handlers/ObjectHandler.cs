@@ -76,7 +76,7 @@ return false;
 
             if (_currentBusHandler.EntityTypes == _entityTypes && _currentBusHandler.IsArrivedToCenter)
             {
-                transform.DOMove(new(_currentBusHandler.transform.position.x, transform.position.y, _currentBusHandler.transform.position.z), .1f).OnComplete(() =>
+                transform.DOMove(new(_currentBusHandler.transform.position.x, transform.position.y, _currentBusHandler.transform.position.z), .3f).OnComplete(() =>
                 {
                     _currentBusHandler.IncreaseObjectCount();
                     Destroy(gameObject);
@@ -95,7 +95,7 @@ return false;
 
             if (stockHandler != null)
             {
-                transform.DOMove(new(stockHandler.transform.position.x, transform.position.y, stockHandler.transform.position.z), .1f);
+                transform.DOMove(new(stockHandler.transform.position.x, transform.position.y, stockHandler.transform.position.z), .3f);
             }
         }
 
