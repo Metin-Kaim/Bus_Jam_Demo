@@ -8,6 +8,7 @@ using System;
 using log4net.Core;
 using UnityEditor.AnimatedValues;
 
+
 public class GridLevelEditor : EditorWindow
 {
     private readonly float _cellSize = 35;
@@ -28,11 +29,11 @@ public class GridLevelEditor : EditorWindow
     private bool _isSelectedOtherPart;
     private int _levelCount;
     private string[] _levelNames;
-    private readonly string _separator = "-------------------------------------------------------------------------------------------" +
-      "-------------------------------------------------------------------------------------------" +
-      "-------------------------------------------------------------------------------------------";
+    private readonly string _separator = "-------------------------------------------------------------------------------------------";
     List<EditorTexture> _entityTextures;
-    private readonly List<EntityTypes> busColors = new();
+    private readonly List<EntityTypes> _busColors = new();
+    private List<SpawnerObjectInfo> _spawnerList = new();
+    private List<bool> _spawnerListVisibility = new();
     private Vector2 _scrollPosition = Vector2.zero;
     private AnimBool _isGridOpen;
     private bool _isSlideGridToLeft;
@@ -68,6 +69,7 @@ public class GridLevelEditor : EditorWindow
 
         _isGridOpen.target = EditorGUILayout.ToggleLeft(_gridState, _isGridOpen.target);
 
+        #region Grid Elements
         if (EditorGUILayout.BeginFadeGroup(_isGridOpen.faded))
         {
             _gridState = "Show Grid";
@@ -150,8 +152,58 @@ public class GridLevelEditor : EditorWindow
                 EditorGUILayout.LabelField("Please attach some textures to \"Resources/Editor/EditorTextures\"");
             }
             #endregion
+
+            #region Spawner List
+            Seperator();
+
+            if (GUILayout.Button("Add Spawner List"))
+            {
+                _levelInfos.spawnerList.Add(new());
+                _spawnerListVisibility.Add(true);
+                //_levelInfos.spawnerList.Add(new());
+            }
+            for (int i = 0; i < _levelInfos.spawnerList.Count; i++)
+            {
+                EditorGUILayout.BeginHorizontal();
+                if (GUILayout.Button("Add Object List"))
+                {
+                    _levelInfos.spawnerList[i].spawnerObjects.Add(new());
+                    //_levelInfos.spawnerList[i].Add(new());
+                }
+                if (GUILayout.Button("Remove"))
+                {
+                    _levelInfos.spawnerList.RemoveAt(i);
+                    //_levelInfos.spawnerList.RemoveAt(i);
+                }
+                if (GUILayout.Button(_spawnerListVisibility[i] ? "Hide" : "Show"))
+                {
+                    _spawnerListVisibility[i] = !_spawnerListVisibility[i];
+                }
+                EditorGUILayout.EndHorizontal();
+                if (_spawnerListVisibility[i])
+                {
+                    for (int j = 0; j < _levelInfos.spawnerList[i].spawnerObjects.Count; j++)
+                    {
+                        EditorGUILayout.BeginHorizontal();
+                        _levelInfos.spawnerList[i].spawnerObjects[j] = (EntityTypes)EditorGUILayout.EnumPopup("Object Color " + (j), _spawnerList[i].spawnerObjects[j]);
+                        if (_levelInfos.spawnerList[i].spawnerObjects[j] == EntityTypes.None)
+                        {
+                            _levelInfos.spawnerList[i].spawnerObjects[j] = EntityTypes.Red;
+                        }
+                        //_levelInfos.spawnerList[i][j] = _spawnerList[i][j];
+                        if (GUILayout.Button("Remove"))
+                        {
+                            _levelInfos.spawnerList[i].spawnerObjects.RemoveAt(j);
+                            //_levelInfos.spawnerList[i].RemoveAt(j);
+                        }
+                        EditorGUILayout.EndHorizontal();
+                    }
+                }
+            }
+            #endregion
         }
         EditorGUILayout.EndFadeGroup();
+        #endregion
 
         #region Detection Process
         if (_selectedCell != -1)
@@ -165,8 +217,6 @@ public class GridLevelEditor : EditorWindow
         }
         #endregion
 
-
-
         Seperator();
 
         #region Bus List
@@ -174,22 +224,22 @@ public class GridLevelEditor : EditorWindow
 
         if (GUILayout.Button("Add Bus Color"))
         {
-            busColors.Add(EntityTypes.Red);
+            _busColors.Add(EntityTypes.Red);
             _levelInfos.levelBusInfos.Add(new() { busColorType = EntityTypes.Red });
         }
 
-        for (int i = 0; i < busColors.Count; i++)
+        for (int i = 0; i < _busColors.Count; i++)
         {
             EditorGUILayout.BeginHorizontal();
-            busColors[i] = (EntityTypes)EditorGUILayout.EnumPopup("Bus Color " + (i), busColors[i]);
-            if (busColors[i] == EntityTypes.None)
+            _busColors[i] = (EntityTypes)EditorGUILayout.EnumPopup("Bus Color " + (i), _busColors[i]);
+            if (_busColors[i] == EntityTypes.None)
             {
-                busColors[i] = EntityTypes.Red;
+                _busColors[i] = EntityTypes.Red;
             }
-            _levelInfos.levelBusInfos[i].busColorType = busColors[i];
+            _levelInfos.levelBusInfos[i].busColorType = _busColors[i];
             if (GUILayout.Button("Remove"))
             {
-                busColors.RemoveAt(i);
+                _busColors.RemoveAt(i);
                 _levelInfos.levelBusInfos.RemoveAt(i);
             }
             EditorGUILayout.EndHorizontal();
@@ -262,9 +312,12 @@ public class GridLevelEditor : EditorWindow
     {
         _levelInfos = Resources.Load<LevelInfos_SO>($"RunTime/Levels/Level {_selectedLevel}");
 
-        busColors.Clear();
+        _busColors.Clear();
         _levelInfos.levelBusInfos ??= new List<LevelBusInfo>();
+        _levelInfos.spawnerList ??= new();
         _isSlideGridToLeft = _levelInfos.isSlideGridToLeft;
+
+        _spawnerList = _levelInfos.spawnerList;
 
         if (_levelInfos.levelCellInfos == null || _levelInfos.levelCellInfos.Count == 0)
         {
@@ -284,7 +337,7 @@ public class GridLevelEditor : EditorWindow
             }
             for (int i = 0; i < _levelInfos.levelBusInfos.Count; i++)
             {
-                busColors.Add(_levelInfos.levelBusInfos[i].busColorType);
+                _busColors.Add(_levelInfos.levelBusInfos[i].busColorType);
             }
         }
     }

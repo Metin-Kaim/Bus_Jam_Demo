@@ -259,4 +259,5 @@ MonoBehaviour:
   levelBusInfos:
   - busColorType: 2
   - busColorType: 0
+  spawnerList: []
   isSlideGridToLeft: 0
