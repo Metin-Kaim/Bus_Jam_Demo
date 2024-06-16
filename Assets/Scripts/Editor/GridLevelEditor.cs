@@ -65,6 +65,11 @@ public class GridLevelEditor : EditorWindow
             _entityTextures = _cellInfos_SO.ObjectTextures;
         }
 
+        if (GUILayout.Button("Save"))
+        {
+            UpdateScriptableObject(_levelInfos);
+        }
+
         _scrollPosition = EditorGUILayout.BeginScrollView(_scrollPosition);
 
         _isGridOpen.target = EditorGUILayout.ToggleLeft(_gridState, _isGridOpen.target);
@@ -226,6 +231,10 @@ public class GridLevelEditor : EditorWindow
         {
             _busColors.Add(EntityTypes.Red);
             _levelInfos.levelBusInfos.Add(new() { busColorType = EntityTypes.Red });
+
+            EditorUtility.SetDirty(_levelInfos);
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
         }
 
         for (int i = 0; i < _busColors.Count; i++)
@@ -251,6 +260,7 @@ public class GridLevelEditor : EditorWindow
 
         EditorGUILayout.Space();
 
+        #region Timer
         EditorGUI.BeginChangeCheck();
         _timer = EditorGUILayout.IntField("Set Timer: (Second)", _timer);
         if (EditorGUI.EndChangeCheck())
@@ -258,7 +268,12 @@ public class GridLevelEditor : EditorWindow
             Debug.Log("Timer set edildi.");
             _timer = _timer > 0 ? _timer : 0;
             _levelInfos.timer = _timer;
+
+            EditorUtility.SetDirty(_levelInfos);
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
         }
+        #endregion
 
         Seperator();
 
@@ -291,6 +306,7 @@ public class GridLevelEditor : EditorWindow
         #endregion
 
         EditorGUILayout.EndScrollView();
+
     }
 
     private void OnChangeSlideGrid()
@@ -394,7 +410,6 @@ public class GridLevelEditor : EditorWindow
         _levelInfos.levelCellInfos[_selectedCell].texture = texture;
         _levelInfos.levelCellInfos[_selectedCell].isObstacle = _selectedTexture != 0 && (_isSelectedObstaclePart || _isSelectedOtherPart);
         _levelInfos.levelCellInfos[_selectedCell].rotation = _rotationInfo;
-        AssetDatabase.SaveAssets();
     }
 
     private void GenerateGrid()
@@ -431,5 +446,12 @@ public class GridLevelEditor : EditorWindow
         AssetDatabase.CreateAsset(newLevelData, path);
         AssetDatabase.SaveAssets();
         GetLevels();
+    }
+
+    public void UpdateScriptableObject(ScriptableObject obj)
+    {
+        EditorUtility.SetDirty(obj);
+        AssetDatabase.SaveAssets();
+        AssetDatabase.Refresh();
     }
 }

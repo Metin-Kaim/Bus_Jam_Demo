@@ -15,7 +15,13 @@ namespace RunTime.Managers
 
         private void Awake()
         {
+            if (Instance != null && Instance != this)
+            {
+                Destroy(this);
+                return;
+            }
             Instance = this;
+            DontDestroyOnLoad(gameObject);
 
             if (!PlayerPrefs.HasKey(_saveIsGameStarted) || PlayerPrefs.GetInt(_saveIsGameStarted) == 0)
             {

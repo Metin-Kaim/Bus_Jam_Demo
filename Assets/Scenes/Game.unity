@@ -457,7 +457,6 @@ GameObject:
   m_Component:
   - component: {fileID: 355144999}
   - component: {fileID: 355145007}
-  - component: {fileID: 355145002}
   - component: {fileID: 355145003}
   - component: {fileID: 355145004}
   - component: {fileID: 355145005}
@@ -484,18 +483,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 149158586}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &355145002
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 355144998}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4dedc192fce9ae1408b1288be75f042b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &355145003
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1316,7 +1303,6 @@ GameObject:
   - component: {fileID: 1037835409}
   - component: {fileID: 1037835410}
   - component: {fileID: 1037835412}
-  - component: {fileID: 1037835411}
   - component: {fileID: 1037835413}
   m_Layer: 0
   m_Name: Signals
@@ -1398,18 +1384,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7b3a97e11cc9c574989d9a008550ec5b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1037835411
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1037835404}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e97a2c5e6116e9b4bb1db0088a7265eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1037835412

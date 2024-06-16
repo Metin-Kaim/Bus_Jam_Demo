@@ -55,5 +55,10 @@ namespace RunTime.Managers
         {
             CoreGameSignals.Instance.onLoadScene?.Invoke(SceneManager.GetActiveScene().buildIndex);
         }
+
+        public void OnClickedStartButton()
+        {
+            CoreGameSignals.Instance.onLoadScene?.Invoke(SceneManager.GetActiveScene().buildIndex + 1);
+        }
     }
 }

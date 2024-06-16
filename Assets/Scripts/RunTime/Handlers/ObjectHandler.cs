@@ -53,8 +53,11 @@ namespace RunTime.Handlers
 
             if (!GameManager.IsSpawnedObject || IsLastObjetOfSpawner)
             {
-                GameManager.IsSpawnedObject = false;
                 currentTileBackUp.OpenAccessibleObjects();
+            }
+            else
+            {
+                GameManager.IsSpawnedObject = false;
             }
 
             Sequence moveSeq = DOTween.Sequence();

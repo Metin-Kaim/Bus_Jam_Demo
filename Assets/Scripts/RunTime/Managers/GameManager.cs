@@ -7,7 +7,7 @@ namespace RunTime.Managers
 {
     public class GameManager : MonoBehaviour
     {
-        public static bool IsSpawnedObject;
+        public static bool IsSpawnedObject { get; set; }
 
         private void OnEnable()
         {
