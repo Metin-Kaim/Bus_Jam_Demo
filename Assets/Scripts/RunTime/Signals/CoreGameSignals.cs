@@ -8,6 +8,7 @@ namespace RunTime.Signals
         public static CoreGameSignals Instance;
 
         public UnityAction onWin;
+        public UnityAction onLose;
         public UnityAction<int> onLoadScene;
 
         private void Awake()

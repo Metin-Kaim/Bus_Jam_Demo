@@ -261,4 +261,5 @@ MonoBehaviour:
   - busColorType: 0
   spawnerList:
   - spawnerObjects: 000000000100000002000000
+  timer: 30
   isSlideGridToLeft: 0

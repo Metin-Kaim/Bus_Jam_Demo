@@ -8,7 +8,8 @@ namespace RunTime.Managers
 {
     public class CanvasManager : MonoBehaviour
     {
-        [SerializeField] GameObject _gameOverPanel;
+        [SerializeField] GameObject _winPanel;
+        [SerializeField] GameObject _losePanel;
         [SerializeField] TextMeshProUGUI _levelTxt;
 
         private void Start()
@@ -19,17 +20,29 @@ namespace RunTime.Managers
         private void OnEnable()
         {
             CoreGameSignals.Instance.onWin += OnWin;
+            CoreGameSignals.Instance.onLose += OnLose;
         }
 
         private void OnWin()
         {
-            InputSignals.Instance.onCloseClickable?.Invoke();
-            StartCoroutine(OpenPanel(_gameOverPanel));
+            OnPause();
+            StartCoroutine(OpenPanel(_winPanel));
+        }
+        private void OnLose()
+        {
+            OnPause();
+            StartCoroutine(OpenPanel(_losePanel));
         }
 
         private void OnDisable()
         {
             CoreGameSignals.Instance.onWin -= OnWin;
+            CoreGameSignals.Instance.onLose -= OnLose;
+        }
+
+        private void OnPause()
+        {
+            InputSignals.Instance.onCloseClickable?.Invoke();
         }
 
         private IEnumerator OpenPanel(GameObject panel)
@@ -38,7 +51,7 @@ namespace RunTime.Managers
             panel.SetActive(true);
         }
 
-        public void OnClickedLevelUpButton()
+        public void OnClickedPanelButton() // Level up - Restart
         {
             CoreGameSignals.Instance.onLoadScene?.Invoke(SceneManager.GetActiveScene().buildIndex);
         }
