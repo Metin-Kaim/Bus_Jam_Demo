@@ -3,6 +3,7 @@ using RunTime.Abstracts;
 using RunTime.Controllers;
 using RunTime.Datas.UnityObjects;
 using RunTime.Datas.ValueObjects;
+using RunTime.Managers;
 using RunTime.Signals;
 using System.Collections.Generic;
 using System.Linq;
@@ -79,13 +80,16 @@ namespace RunTime.Handlers
 
         private void SpawnObject()
         {
+            GameManager.IsSpawnedObject = true;
+
             GameObject newObject = _objectDetails_SO.objectDetails.FirstOrDefault(x => x.entityType == spawnableTypes.spawnerObjects[0]).gameObject;
-            Vector3 spawnPosition = _tiles[_spawnableRow, _spawnableColumn].gameObject.transform.position;
+            Vector3 spawnPosition = _tiles[_spawnableRow, _spawnableColumn].gameObject.transform.position + (Vector3.up * .5f);
             GameObject spawnedObject = Instantiate(newObject, spawnPosition, Quaternion.identity, transform.parent);
             spawnedObject.transform.DOMove(new(spawnPosition.x, spawnedObject.transform.position.y, spawnPosition.z), .3f).From(transform.position);
             spawnedObject.transform.localScale = Vector3.zero;
             spawnableTypes.spawnerObjects.RemoveAt(0);
             ObjectHandler objectHandler = spawnedObject.GetComponent<ObjectHandler>();
+            objectHandler.IsLastObjetOfSpawner = spawnableTypes.spawnerObjects.Count <= 0;
             _grid[_spawnableRow, _spawnableColumn] = 2;
             objectHandler.CurrentTileHandler = _tiles[_spawnableRow, _spawnableColumn];
             objectHandler.CurrentTileHandler.CurrentObjectHandler = objectHandler;

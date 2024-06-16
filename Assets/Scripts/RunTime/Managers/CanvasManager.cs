@@ -34,7 +34,7 @@ namespace RunTime.Managers
 
         private IEnumerator OpenPanel(GameObject panel)
         {
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(1);
             panel.SetActive(true);
         }
 

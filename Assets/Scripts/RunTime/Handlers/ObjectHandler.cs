@@ -2,6 +2,7 @@
 using RunTime.Abstracts;
 using RunTime.Controllers;
 using RunTime.Enums;
+using RunTime.Managers;
 using RunTime.Signals;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,7 +17,9 @@ namespace RunTime.Handlers
         private TileHandler _currentTileHandler;
         private bool _isClickable;
         Tweener _shakeTween;
+        private bool _isLastObjetOfSpawner = false;
 
+        public bool IsLastObjetOfSpawner { get => _isLastObjetOfSpawner; set => _isLastObjetOfSpawner = value; }
         public EntityTypes EntityTypes { get => _entityTypes; set => _entityTypes = value; }
         public StockHandler CurrentStockHandler { get => _currentStockHandler; set => _currentStockHandler = value; }
         public TileHandler CurrentTileHandler { get => _currentTileHandler; set => _currentTileHandler = value; }
@@ -39,13 +42,20 @@ namespace RunTime.Handlers
                 return;
             }
 
-            _currentTileHandler.OpenAccessibleObjects();
 
             List<Coordinate> exitPath = GridSignals.Instance.onGetPathToExit?.Invoke(_currentTileHandler.Row, _currentTileHandler.Column);
             TileHandler[,] tileHandlers = GridSignals.Instance.onGetGridTiles?.Invoke();
+            TileHandler currentTileBackUp = _currentTileHandler;
+            _currentTileHandler.CurrentObjectHandler = null;
             _currentTileHandler = null;
 
             SpawnerSignals.Instance.onCheckToSpawnObject?.Invoke();
+
+            if (!GameManager.IsSpawnedObject || IsLastObjetOfSpawner)
+            {
+                GameManager.IsSpawnedObject = false;
+                currentTileBackUp.OpenAccessibleObjects();
+            }
 
             Sequence moveSeq = DOTween.Sequence();
 
