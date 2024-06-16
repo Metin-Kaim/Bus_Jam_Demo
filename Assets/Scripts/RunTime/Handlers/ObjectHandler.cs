@@ -41,7 +41,7 @@ namespace RunTime.Handlers
 
             _currentTileHandler.OpenAccessibleObjects();
 
-            List<Coordinate> exitPath = GridSignals.Instance.onGetPathToExit?.Invoke(_currentTileHandler.Row, _currentTileHandler.Col);
+            List<Coordinate> exitPath = GridSignals.Instance.onGetPathToExit?.Invoke(_currentTileHandler.Row, _currentTileHandler.Column);
             TileHandler[,] tileHandlers = GridSignals.Instance.onGetGridTiles?.Invoke();
             _currentTileHandler.CurrentObjectHandler = null;
             _currentTileHandler = null;

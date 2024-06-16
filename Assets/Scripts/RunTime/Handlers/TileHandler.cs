@@ -1,9 +1,10 @@
-﻿using RunTime.Signals;
+﻿using RunTime.Abstracts;
+using RunTime.Signals;
 using UnityEngine;
 
 namespace RunTime.Handlers
 {
-    public class TileHandler : MonoBehaviour
+    public class TileHandler : MonoBehaviour, ICoordinate
     {
         ObjectHandler _currentObjectHandler;
         [SerializeField] private byte row;
@@ -12,7 +13,7 @@ namespace RunTime.Handlers
 
         public ObjectHandler CurrentObjectHandler { get => _currentObjectHandler; set => _currentObjectHandler = value; }
         public byte Row { get => row; set => row = value; }
-        public byte Col { get => col; set => col = value; }
+        public byte Column { get => col; set => col = value; }
 
         public void ActivateOtherObjects(int row, int col)
         {
@@ -56,7 +57,7 @@ namespace RunTime.Handlers
         public void OpenAccessibleObjects()
         {
             IsChecked = true;
-            CheckEveryDirections(Row, Col);
+            CheckEveryDirections(Row, Column);
             //CurrentObject.tileHandler = null; // Remember: eğer arama algoritmasında sıkıntı çıkarsa burayı aç!!! 
             CurrentObjectHandler = null;
             AllCheksFalse();

@@ -1,3 +1,4 @@
+using RunTime.Abstracts;
 using RunTime.Datas.UnityObjects;
 using RunTime.Datas.ValueObjects;
 using RunTime.Handlers;
@@ -64,7 +65,7 @@ namespace RunTime.Controllers
                         objectPosition = tilePosition + (Vector3.up * .5f);
                         tileHandler = Instantiate(_tilePrefab, tilePosition, Quaternion.identity, _gridContainer);
                         tileHandler.Row = (byte)j;
-                        tileHandler.Col = (byte)x;
+                        tileHandler.Column = (byte)x;
                         _gridTiles[j, x] = tileHandler;
                         objectDetail = _objectDetails_SO.objectDetails.FirstOrDefault(a => a.texture == _levelInfos.levelCellInfos[i].texture);
                     }
@@ -80,6 +81,12 @@ namespace RunTime.Controllers
                             ObjectHandler objectHandler = gameObject1.GetComponent<ObjectHandler>();
                             tileHandler.CurrentObjectHandler = objectHandler;
                             objectHandler.CurrentTileHandler = tileHandler;
+                        }
+                        else if(gameObject1.TryGetComponent(out ICoordinate coordinate))
+                        {
+                            print("Coordinate");
+                            coordinate.Row = (byte)j;
+                            coordinate.Column = (byte)x;
                         }
                     }
 
