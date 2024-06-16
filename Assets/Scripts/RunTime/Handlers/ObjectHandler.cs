@@ -43,8 +43,9 @@ namespace RunTime.Handlers
 
             List<Coordinate> exitPath = GridSignals.Instance.onGetPathToExit?.Invoke(_currentTileHandler.Row, _currentTileHandler.Column);
             TileHandler[,] tileHandlers = GridSignals.Instance.onGetGridTiles?.Invoke();
-            _currentTileHandler.CurrentObjectHandler = null;
             _currentTileHandler = null;
+
+            SpawnerSignals.Instance.onCheckToSpawnObject?.Invoke();
 
             Sequence moveSeq = DOTween.Sequence();
 
@@ -66,11 +67,7 @@ namespace RunTime.Handlers
         {
             BusHandler _currentBusHandler = BusSignals.Instance.onGetCurrentBus?.Invoke();
 
-            if (_currentBusHandler == null)
-            {
-                print("not bus");
-return false;
-            }
+            if (_currentBusHandler == null) return false;
 
             if (_currentBusHandler.EntityTypes == _entityTypes && _currentBusHandler.IsArrivedToCenter)
             {
@@ -85,9 +82,8 @@ return false;
         }
         private void MoveToStock()
         {
-            print("Stock");
             StockHandler stockHandler = StockSignals.Instance.onGetAvailableStock?.Invoke();
-            print(stockHandler.name);
+
             _currentStockHandler = stockHandler;
             stockHandler.CurrentObjectHandler = this;
 

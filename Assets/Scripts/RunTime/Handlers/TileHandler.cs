@@ -58,7 +58,7 @@ namespace RunTime.Handlers
         {
             IsChecked = true;
             CheckEveryDirections(Row, Column);
-            //CurrentObject.tileHandler = null; // Remember: eğer arama algoritmasında sıkıntı çıkarsa burayı aç!!! 
+
             CurrentObjectHandler = null;
             AllCheksFalse();
         }

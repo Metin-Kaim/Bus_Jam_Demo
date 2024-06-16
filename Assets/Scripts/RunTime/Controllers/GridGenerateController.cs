@@ -4,6 +4,7 @@ using RunTime.Datas.ValueObjects;
 using RunTime.Handlers;
 using RunTime.Signals;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 //.75f
 namespace RunTime.Controllers
@@ -46,7 +47,7 @@ namespace RunTime.Controllers
 
         private void GenerateGrid()
         {
-
+            int spawnerCounter = 0;
             for (int i = 0, j = 0, y = _gridWidth; y > 0; y--)
             {
                 for (int x = 0; x < _gridHeight; x++)
@@ -82,11 +83,14 @@ namespace RunTime.Controllers
                             tileHandler.CurrentObjectHandler = objectHandler;
                             objectHandler.CurrentTileHandler = tileHandler;
                         }
-                        else if(gameObject1.TryGetComponent(out ICoordinate coordinate))
+                        else if (gameObject1.TryGetComponent(out SpawnerHandler spawner))
                         {
-                            print("Coordinate");
-                            coordinate.Row = (byte)j;
-                            coordinate.Column = (byte)x;
+                            spawner.Row = (byte)j;
+                            spawner.Column = (byte)x;
+                            spawner.spawnableTypes.spawnerObjects.AddRange(_levelInfos.spawnerList[spawnerCounter].spawnerObjects);
+                            //spawner.spawnableTypes.spawnerObjects.AddRange(_levelInfos.spawnerList[spawnerCounter]);
+                            //spawner.spawnableTypes = _levelInfos.spawnerList != null && _levelInfos.spawnerList.Count > spawnerCounter && _levelInfos.spawnerList.Count > 0 ? _levelInfos.spawnerList[spawnerCounter] : null;
+                            spawnerCounter++;
                         }
                     }
 

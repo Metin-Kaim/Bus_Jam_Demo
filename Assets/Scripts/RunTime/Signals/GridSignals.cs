@@ -14,6 +14,7 @@ namespace RunTime.Signals
         public Func<TileHandler[,]> onGetGridTiles;
         public Func<List<Coordinate>> onGetActiveObjectCoordinates;
         public Func<int, int, List<Coordinate>> onGetPathToExit;
+        public Func<int[,]> onGetGrid;
 
         private void Awake()
         {

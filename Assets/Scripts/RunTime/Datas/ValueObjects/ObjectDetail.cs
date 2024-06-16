@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using RunTime.Enums;
+using UnityEngine;
 
 namespace RunTime.Datas.ValueObjects
 {
@@ -7,5 +8,6 @@ namespace RunTime.Datas.ValueObjects
     {
         public Texture texture;
         public GameObject gameObject;
+        public EntityTypes entityType;
     }
 }

@@ -30,11 +30,13 @@ namespace RunTime.Controllers
         {
             GridSignals.Instance.onGetActiveObjectCoordinates += () => escapePaths;
             GridSignals.Instance.onGetPathToExit += FindPathToFirstRow;
+            GridSignals.Instance.onGetGrid += () => grid;
         }
         private void OnDisable()
         {
             GridSignals.Instance.onGetActiveObjectCoordinates -= () => escapePaths;
             GridSignals.Instance.onGetPathToExit -= FindPathToFirstRow;
+            GridSignals.Instance.onGetGrid -= () => grid;
         }
 
         private void Start()

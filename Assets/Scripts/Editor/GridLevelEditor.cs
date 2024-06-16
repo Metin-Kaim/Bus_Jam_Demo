@@ -185,7 +185,7 @@ public class GridLevelEditor : EditorWindow
                     for (int j = 0; j < _levelInfos.spawnerList[i].spawnerObjects.Count; j++)
                     {
                         EditorGUILayout.BeginHorizontal();
-                        _levelInfos.spawnerList[i].spawnerObjects[j] = (EntityTypes)EditorGUILayout.EnumPopup("Object Color " + (j), _spawnerList[i].spawnerObjects[j]);
+                        _levelInfos.spawnerList[i].spawnerObjects[j] = (EntityTypes)EditorGUILayout.EnumPopup("Object Color " + (j), _levelInfos.spawnerList[i].spawnerObjects[j]);
                         if (_levelInfos.spawnerList[i].spawnerObjects[j] == EntityTypes.None)
                         {
                             _levelInfos.spawnerList[i].spawnerObjects[j] = EntityTypes.Red;
@@ -318,6 +318,10 @@ public class GridLevelEditor : EditorWindow
         _isSlideGridToLeft = _levelInfos.isSlideGridToLeft;
 
         _spawnerList = _levelInfos.spawnerList;
+        for (int i = 0; i < _levelInfos.spawnerList.Count; i++)
+        {
+            _spawnerListVisibility.Add(true);
+        }
 
         if (_levelInfos.levelCellInfos == null || _levelInfos.levelCellInfos.Count == 0)
         {

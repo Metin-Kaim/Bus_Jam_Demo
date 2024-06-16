@@ -19,7 +19,6 @@ namespace RunTime.Managers
 
             if (!PlayerPrefs.HasKey(_saveIsGameStarted) || PlayerPrefs.GetInt(_saveIsGameStarted) == 0)
             {
-                print("Game Is Started");
                 SaveGameIsStarted = 1;
                 SaveCurrentLevelIndex = 0;
             }

@@ -37,7 +37,6 @@ namespace Assets.Scripts.RunTime.Managers
         public void IncreaseLevelIndex()
         {
             SaveManager.Instance.SaveCurrentLevelIndex++;
-            print(SaveManager.Instance.SaveCurrentLevelIndex);
         }
     }
 }
