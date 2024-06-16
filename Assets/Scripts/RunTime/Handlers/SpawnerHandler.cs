@@ -1,12 +1,11 @@
 ﻿using DG.Tweening;
 using RunTime.Abstracts;
-using RunTime.Controllers;
 using RunTime.Datas.UnityObjects;
 using RunTime.Datas.ValueObjects;
 using RunTime.Managers;
 using RunTime.Signals;
-using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 
 namespace RunTime.Handlers
@@ -15,6 +14,9 @@ namespace RunTime.Handlers
     {
         public SpawnerObjectInfo spawnableTypes;
 
+        [SerializeField] TextMeshPro _spawnerObjectCountTxt;
+
+        Vector3 _objectCountRotation;
         byte _spawnableRow;
         byte _spawnableColumn;
         TileHandler[,] _tiles;
@@ -35,6 +37,8 @@ namespace RunTime.Handlers
 
         private void Start()
         {
+            SetObjectCount();
+
             _tiles = GridSignals.Instance.onGetGridTiles?.Invoke();
             _objectDetails_SO = Resources.Load<ObjectDetails_SO>("RunTime/ObjectDetails");
             _grid = GridSignals.Instance.onGetGrid?.Invoke();
@@ -48,17 +52,28 @@ namespace RunTime.Handlers
             {
                 case 0:
                     _spawnableRow--;
+                    _objectCountRotation = new(90, 0, 0);
                     break;
                 case 90:
                     _spawnableColumn++;
+                    _objectCountRotation = new(90, 0, 90);
                     break;
                 case 180:
                     _spawnableRow++;
+                    _objectCountRotation = new(90, 0, 180);
                     break;
                 case 270:
+                    _objectCountRotation = new(90, 0, 270);
                     _spawnableColumn--;
                     break;
             }
+
+            _spawnerObjectCountTxt.transform.localRotation = Quaternion.Euler(_objectCountRotation);
+        }
+
+        private void SetObjectCount()
+        {
+            _spawnerObjectCountTxt.text = spawnableTypes.spawnerObjects.Count.ToString();
         }
 
         public void CheckNextTileToSpawn()
@@ -75,6 +90,7 @@ namespace RunTime.Handlers
             if (_tiles[_spawnableRow, _spawnableColumn].CurrentObjectHandler == null)
             {
                 SpawnObject();
+                SetObjectCount();
             }
         }
 

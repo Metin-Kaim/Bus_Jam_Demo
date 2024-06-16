@@ -30,7 +30,7 @@ public class GridLevelEditor : EditorWindow
     private readonly string _separator = "-------------------------------------------------------------------------------------------";
     List<EditorTexture> _entityTextures;
     private readonly List<EntityTypes> _busColors = new();
-    private List<SpawnerObjectInfo> _spawnerList = new();
+    private List<SpawnerObjectInfo> _spawnerList;
     private List<bool> _spawnerListVisibility = new();
     private Vector2 _scrollPosition = Vector2.zero;
     private AnimBool _isGridOpen;
@@ -165,7 +165,6 @@ public class GridLevelEditor : EditorWindow
             {
                 _levelInfos.spawnerList.Add(new());
                 _spawnerListVisibility.Add(true);
-                //_levelInfos.spawnerList.Add(new());
             }
             for (int i = 0; i < _levelInfos.spawnerList.Count; i++)
             {
@@ -173,12 +172,10 @@ public class GridLevelEditor : EditorWindow
                 if (GUILayout.Button("Add Object List"))
                 {
                     _levelInfos.spawnerList[i].spawnerObjects.Add(new());
-                    //_levelInfos.spawnerList[i].Add(new());
                 }
                 if (GUILayout.Button("Remove"))
                 {
                     _levelInfos.spawnerList.RemoveAt(i);
-                    //_levelInfos.spawnerList.RemoveAt(i);
                 }
                 if (GUILayout.Button(_spawnerListVisibility[i] ? "Hide" : "Show"))
                 {
@@ -195,11 +192,9 @@ public class GridLevelEditor : EditorWindow
                         {
                             _levelInfos.spawnerList[i].spawnerObjects[j] = EntityTypes.Red;
                         }
-                        //_levelInfos.spawnerList[i][j] = _spawnerList[i][j];
                         if (GUILayout.Button("Remove"))
                         {
                             _levelInfos.spawnerList[i].spawnerObjects.RemoveAt(j);
-                            //_levelInfos.spawnerList[i].RemoveAt(j);
                         }
                         EditorGUILayout.EndHorizontal();
                     }
