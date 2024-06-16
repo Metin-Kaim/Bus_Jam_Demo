@@ -4,8 +4,6 @@ using UnityEngine;
 using RunTime.Datas.UnityObjects;
 using RunTime.Datas.ValueObjects;
 using RunTime.Enums;
-using System;
-using log4net.Core;
 using UnityEditor.AnimatedValues;
 
 
@@ -39,6 +37,7 @@ public class GridLevelEditor : EditorWindow
     private bool _isSlideGridToLeft;
     private string _gridState;
     private Vector3 _rotationInfo;
+    private int _timer;
 
     private int GetGridSize => _gridRow * _gridColumn;
 
@@ -65,6 +64,7 @@ public class GridLevelEditor : EditorWindow
             GetLevels();
             _entityTextures = _cellInfos_SO.ObjectTextures;
         }
+
         _scrollPosition = EditorGUILayout.BeginScrollView(_scrollPosition);
 
         _isGridOpen.target = EditorGUILayout.ToggleLeft(_gridState, _isGridOpen.target);
@@ -249,6 +249,19 @@ public class GridLevelEditor : EditorWindow
 
         Seperator();
 
+        EditorGUILayout.Space();
+
+        EditorGUI.BeginChangeCheck();
+        _timer = EditorGUILayout.IntField("Set Timer: (Second)", _timer);
+        if (EditorGUI.EndChangeCheck())
+        {
+            Debug.Log("Timer set edildi.");
+            _timer = _timer > 0 ? _timer : 0;
+            _levelInfos.timer = _timer;
+        }
+
+        Seperator();
+
         #region Level Selector
         EditorGUILayout.LabelField("Choose Level");
 
@@ -316,6 +329,8 @@ public class GridLevelEditor : EditorWindow
         _levelInfos.levelBusInfos ??= new List<LevelBusInfo>();
         _levelInfos.spawnerList ??= new();
         _isSlideGridToLeft = _levelInfos.isSlideGridToLeft;
+
+        _timer = _levelInfos.timer;
 
         _spawnerList = _levelInfos.spawnerList;
         for (int i = 0; i < _levelInfos.spawnerList.Count; i++)

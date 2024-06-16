@@ -11,6 +11,7 @@ namespace RunTime.Datas.UnityObjects
         public List<LevelCellInfo> levelCellInfos;
         public List<LevelBusInfo> levelBusInfos;
         public List<SpawnerObjectInfo> spawnerList;
+        public int timer;
         public bool isSlideGridToLeft;
     }
 }
