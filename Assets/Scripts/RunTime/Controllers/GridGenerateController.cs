@@ -14,6 +14,7 @@ namespace RunTime.Controllers
         [SerializeField] TileHandler _tilePrefab;
         [SerializeField] Transform _gridContainer;
         [SerializeField] float _tileSpacing;
+        [SerializeField] ObjectHandler _objectPrefab;
 
         int _gridWidth;
         int _gridHeight;
@@ -60,6 +61,17 @@ namespace RunTime.Controllers
                     {
                         objectPosition = tilePosition;
                         objectDetail = _objectDetails_SO.obstacleDetails.FirstOrDefault(a => a.texture == _levelInfos.levelCellInfos[i].texture);
+
+                        GameObject gameObject1 = Instantiate(objectDetail.gameObject, objectPosition, Quaternion.identity, _gridContainer);
+                        gameObject1.transform.rotation = Quaternion.Euler(_levelInfos.levelCellInfos[i].rotation);
+
+                        if (gameObject1.TryGetComponent(out SpawnerHandler spawner))
+                        {
+                            spawner.Row = (byte)j;
+                            spawner.Column = (byte)x;
+                            spawner.spawnableTypes.spawnerObjects.AddRange(_levelInfos.spawnerList[spawnerCounter].spawnerObjects);
+                            spawnerCounter++;
+                        }
                     }
                     else
                     {
@@ -69,31 +81,15 @@ namespace RunTime.Controllers
                         tileHandler.Column = (byte)x;
                         _gridTiles[j, x] = tileHandler;
                         objectDetail = _objectDetails_SO.objectDetails.FirstOrDefault(a => a.texture == _levelInfos.levelCellInfos[i].texture);
+
+                        ObjectHandler newObject = Instantiate(_objectPrefab, objectPosition, Quaternion.identity, _gridContainer);
+                        newObject.EntityType = objectDetail.entityType;
+                        newObject.GetComponent<MeshRenderer>().material.color = (Color)(ColorSignals.Instance.onGetColor?.Invoke(objectDetail.entityType));
+
+                        tileHandler.CurrentObjectHandler = newObject;
+                        newObject.CurrentTileHandler = tileHandler;
+                        newObject.name = $"Object {_gridWidth - y}-{x}";
                     }
-
-                    GameObject newObject = objectDetail.gameObject;
-
-                    if (newObject != null)
-                    {
-                        GameObject gameObject1 = Instantiate(newObject, objectPosition, Quaternion.identity, _gridContainer);
-                        gameObject1.transform.rotation = Quaternion.Euler(_levelInfos.levelCellInfos[i].rotation);
-                        if (tileHandler != null)
-                        {
-                            ObjectHandler objectHandler = gameObject1.GetComponent<ObjectHandler>();
-                            tileHandler.CurrentObjectHandler = objectHandler;
-                            objectHandler.CurrentTileHandler = tileHandler;
-                        }
-                        else if (gameObject1.TryGetComponent(out SpawnerHandler spawner))
-                        {
-                            spawner.Row = (byte)j;
-                            spawner.Column = (byte)x;
-                            spawner.spawnableTypes.spawnerObjects.AddRange(_levelInfos.spawnerList[spawnerCounter].spawnerObjects);
-                            //spawner.spawnableTypes.spawnerObjects.AddRange(_levelInfos.spawnerList[spawnerCounter]);
-                            //spawner.spawnableTypes = _levelInfos.spawnerList != null && _levelInfos.spawnerList.Count > spawnerCounter && _levelInfos.spawnerList.Count > 0 ? _levelInfos.spawnerList[spawnerCounter] : null;
-                            spawnerCounter++;
-                        }
-                    }
-
                     i++;
                 }
                 j++;

@@ -16,15 +16,24 @@ MonoBehaviour:
   - texture: {fileID: 0}
     gameObject: {fileID: 0}
     entityType: -1
-  - texture: {fileID: 2800000, guid: 0155f537d15270b48b30c01266c705f8, type: 3}
-    gameObject: {fileID: 3830874516680956218, guid: b9c03fc855cbc8f459053afe7f871d72, type: 3}
-    entityType: 2
-  - texture: {fileID: 2800000, guid: 0de534f9bf1a00c4ebe6b2602860c5bc, type: 3}
-    gameObject: {fileID: 9189716047975288043, guid: a4afae650d7d82042a0d72cb30791b2a, type: 3}
+  - texture: {fileID: 2800000, guid: d26c36d0cd2417945a2c42e6f0ed5156, type: 3}
+    gameObject: {fileID: 0}
     entityType: 0
-  - texture: {fileID: 2800000, guid: f63830f4fb5ecdc4cabef146c10c8e3a, type: 3}
-    gameObject: {fileID: 6393036526015189076, guid: 9a0cb92e065103b4a9a0c7be26c4a473, type: 3}
+  - texture: {fileID: 2800000, guid: 0de534f9bf1a00c4ebe6b2602860c5bc, type: 3}
+    gameObject: {fileID: 0}
     entityType: 1
+  - texture: {fileID: 2800000, guid: 0155f537d15270b48b30c01266c705f8, type: 3}
+    gameObject: {fileID: 0}
+    entityType: 2
+  - texture: {fileID: 2800000, guid: 05c2bd45d38082e4085cdd2a48502837, type: 3}
+    gameObject: {fileID: 0}
+    entityType: 3
+  - texture: {fileID: 2800000, guid: f4de563bc24fbab4dbffe15182abc5d8, type: 3}
+    gameObject: {fileID: 0}
+    entityType: 4
+  - texture: {fileID: 2800000, guid: 3da03c67254ddc1478c7d99d385ae4ae, type: 3}
+    gameObject: {fileID: 0}
+    entityType: 5
   obstacleDetails:
   - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
     gameObject: {fileID: 331215758570261529, guid: dd920f4adebea2c4f93b74f17ace7748, type: 3}

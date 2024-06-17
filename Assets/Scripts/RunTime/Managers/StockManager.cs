@@ -25,7 +25,6 @@ namespace RunTime.Managers
                 if (_stockList[i].IsEmpty && _stockList[i].IsOpen)
                 {
                     StartCoroutine(IChecker());
-                    print("a");
                     return _stockList[i];
                 }
             }

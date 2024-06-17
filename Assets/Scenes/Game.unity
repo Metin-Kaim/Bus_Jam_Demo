@@ -3054,6 +3054,7 @@ MonoBehaviour:
   _tilePrefab: {fileID: 4652528024276282489, guid: 189967c12ac127c468fad266c9ce7da4, type: 3}
   _gridContainer: {fileID: 1490540264}
   _tileSpacing: 1.06
+  _objectPrefab: {fileID: -7119400057906772642, guid: 9a0cb92e065103b4a9a0c7be26c4a473, type: 3}
 --- !u!114 &2089015058
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8369645531851404186}
   - component: {fileID: -7119400057906772642}
   m_Layer: 0
-  m_Name: YellowSphere
+  m_Name: Object
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -118,4 +118,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3328046c95db7c4ebf649be792fb853, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _entityType: 1
+  _entityType: -1
