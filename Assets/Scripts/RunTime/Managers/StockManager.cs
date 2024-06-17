@@ -1,7 +1,8 @@
 ﻿using RunTime.Handlers;
 using RunTime.Signals;
-using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace RunTime.Managers
@@ -23,12 +24,42 @@ namespace RunTime.Managers
             {
                 if (_stockList[i].IsEmpty && _stockList[i].IsOpen)
                 {
-                    _stockList[i].IsEmpty = false;
+                    StartCoroutine(IChecker());
+                    print("a");
                     return _stockList[i];
                 }
             }
             return null;
         }
+
+        private IEnumerator IChecker()
+        {
+            yield return null;
+
+            bool areAllStocksFull = true;
+            Debug.LogWarning("Kontrol İşlemi Başlatılıyor...");
+            for (int j = 0; j < _stockList.Count; j++)
+            {
+                if (_stockList[j].IsEmpty)
+                {
+                    areAllStocksFull = false;
+                    break;
+                }
+            }
+            if (areAllStocksFull)
+            {
+                BusHandler currentBus = BusSignals.Instance.onGetCurrentBus?.Invoke();
+                print(currentBus.EntityType);
+                StockHandler matchedStock = _stockList.FirstOrDefault(x => x.CurrentObjectHandler.EntityType == currentBus.EntityType);
+                print(matchedStock);
+                if (matchedStock == null)
+                {
+                    Debug.LogWarning("OYUN DURDURULUYOR...");
+                    CoreGameSignals.Instance.onLose?.Invoke();
+                }
+            }
+        }
+
         public void OnCheckStockObjectsToMoveToBus()
         {
             foreach (StockHandler handler in _stockList)

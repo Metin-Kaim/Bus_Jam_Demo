@@ -25,7 +25,7 @@ namespace RunTime.Handlers
                 _objectCount = value;
             }
         }
-        public EntityTypes EntityTypes { get => _entityTypes; set => _entityTypes = value; }
+        public EntityTypes EntityType { get => _entityTypes; set => _entityTypes = value; }
         public bool IsArrivedToCenter { get => _isArrivedToCenter; set => _isArrivedToCenter = value; }
 
         private void MoveBus()

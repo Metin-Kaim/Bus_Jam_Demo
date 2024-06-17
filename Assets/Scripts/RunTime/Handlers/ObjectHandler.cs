@@ -11,7 +11,7 @@ namespace RunTime.Handlers
 {
     public class ObjectHandler : MonoBehaviour, IEntityTypes
     {
-        [SerializeField] private EntityTypes _entityTypes;
+        [SerializeField] private EntityTypes _entityType;
 
         private StockHandler _currentStockHandler;
         private TileHandler _currentTileHandler;
@@ -20,7 +20,7 @@ namespace RunTime.Handlers
         private bool _isLastObjetOfSpawner = false;
 
         public bool IsLastObjetOfSpawner { get => _isLastObjetOfSpawner; set => _isLastObjetOfSpawner = value; }
-        public EntityTypes EntityTypes { get => _entityTypes; set => _entityTypes = value; }
+        public EntityTypes EntityType { get => _entityType; set => _entityType = value; }
         public StockHandler CurrentStockHandler { get => _currentStockHandler; set => _currentStockHandler = value; }
         public TileHandler CurrentTileHandler { get => _currentTileHandler; set => _currentTileHandler = value; }
         public bool IsClickable { get => _isClickable; set => _isClickable = value; }
@@ -32,13 +32,13 @@ namespace RunTime.Handlers
 
         private void OnMouseDown()
         {
-            if (!_isClickable)
+            if (!(bool)InputSignals.Instance.onGetIsClickable?.Invoke())
             {
-                _shakeTween ??= transform.DOShakePosition(.2f, .2f, 5).OnComplete(() => _shakeTween = null);
                 return;
             }
-            else if (!(bool)InputSignals.Instance.onGetIsClickable?.Invoke())
+            else if (!_isClickable || (!(bool)BusSignals.Instance.onGetCurrentBus?.Invoke().IsArrivedToCenter && StockSignals.Instance.onGetAvailableStock?.Invoke() == null))
             {
+                _shakeTween ??= transform.DOShakePosition(.2f, .2f, 5).OnComplete(() => _shakeTween = null);
                 return;
             }
 
@@ -82,7 +82,7 @@ namespace RunTime.Handlers
 
             if (_currentBusHandler == null) return false;
 
-            if (_currentBusHandler.EntityTypes == _entityTypes && _currentBusHandler.IsArrivedToCenter)
+            if (_currentBusHandler.EntityType == _entityType && _currentBusHandler.IsArrivedToCenter)
             {
                 transform.DOMove(new(_currentBusHandler.transform.position.x, transform.position.y, _currentBusHandler.transform.position.z), .3f).OnComplete(() =>
                 {
@@ -97,6 +97,7 @@ namespace RunTime.Handlers
         {
             StockHandler stockHandler = StockSignals.Instance.onGetAvailableStock?.Invoke();
 
+            stockHandler.IsEmpty = false;
             _currentStockHandler = stockHandler;
             stockHandler.CurrentObjectHandler = this;
 

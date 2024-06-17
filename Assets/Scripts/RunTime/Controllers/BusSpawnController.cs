@@ -76,7 +76,7 @@ namespace RunTime.Controllers
 
             Enums.EntityTypes busColorType = _levelInfos.levelBusInfos[_busListCounter].busColorType;
 
-            busHandler.EntityTypes = busColorType;
+            busHandler.EntityType = busColorType;
 
             Material material = busHandler.GetComponent<MeshRenderer>().materials[0];
 
