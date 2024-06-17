@@ -9,6 +9,7 @@ namespace RunTime.Handlers
     public class BusHandler : MonoBehaviour, IEntityTypes
     {
         [SerializeField] private EntityTypes _entityTypes;
+        [SerializeField] Transform[] _objectPoints;
 
         private int _objectCount;
         private bool _isArrivedToCenter;
@@ -30,11 +31,15 @@ namespace RunTime.Handlers
 
         private void MoveBus()
         {
-            transform.DOMoveX(20, 1);
+            transform.DOMoveX(20, 1).SetDelay(.8f);
             BusSignals.Instance.onSpawnNewBus?.Invoke(this);
         }
-        public void IncreaseObjectCount()
+
+        public void SetObjectToBus(ObjectHandler obj)
         {
+            obj.transform.parent = transform;
+            obj.transform.position = _objectPoints[_objectCount].position;
+            obj.transform.DOScale(obj.transform.localScale * .9f, .3f).From(obj.transform.localScale * .5f);
             ObjectCount++;
         }
     }

@@ -3,8 +3,11 @@
     public enum EntityTypes
     {
         None = -1,
+        Blue,
         Red,
-        Yellow,
         Green,
+        Orange,
+        Purple,
+        White,
     }
 }

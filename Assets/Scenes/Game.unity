@@ -2208,11 +2208,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   colorPatternInfos:
   - entityType: 0
-    color: {r: 1, g: 0, b: 0, a: 1}
+    color: {r: 0, g: 0, b: 1, a: 1}
   - entityType: 1
-    color: {r: 1, g: 1, b: 0, a: 1}
+    color: {r: 1, g: 0, b: 0, a: 1}
   - entityType: 2
     color: {r: 0, g: 1, b: 0, a: 1}
+  - entityType: 3
+    color: {r: 1, g: 0.59335405, b: 0, a: 1}
+  - entityType: 4
+    color: {r: 1, g: 0, b: 0.8343239, a: 1}
+  - entityType: 5
+    color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &1721375480
 MonoBehaviour:
   m_ObjectHideFlags: 0

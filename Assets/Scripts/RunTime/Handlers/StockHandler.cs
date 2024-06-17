@@ -12,9 +12,9 @@ namespace RunTime.Handlers
         public bool IsEmpty { get => _isEmpty; set => _isEmpty = value; }
         public bool IsOpen { get => _isOpen; set => _isOpen = value; }
 
-        public void CheckObjectToMoveToBus()
+        public bool CheckObjectToMoveToBus()
         {
-            if (_isEmpty || !_isOpen) return;
+            if (_isEmpty || !_isOpen) return false;
 
             bool isMovedToBus = _currentObjectHandler.MoveToBus();
 
@@ -23,7 +23,9 @@ namespace RunTime.Handlers
                 _currentObjectHandler.CurrentStockHandler = null;
                 _currentObjectHandler = null;
                 _isEmpty = true;
+                return true;
             }
+            return false;
         }
     }
 }

@@ -37,7 +37,7 @@ namespace RunTime.Managers
             yield return null;
 
             bool areAllStocksFull = true;
-            Debug.LogWarning("Kontrol İşlemi Başlatılıyor...");
+
             for (int j = 0; j < _stockList.Count; j++)
             {
                 if (_stockList[j].IsEmpty)
@@ -49,12 +49,9 @@ namespace RunTime.Managers
             if (areAllStocksFull)
             {
                 BusHandler currentBus = BusSignals.Instance.onGetCurrentBus?.Invoke();
-                print(currentBus.EntityType);
                 StockHandler matchedStock = _stockList.FirstOrDefault(x => x.CurrentObjectHandler.EntityType == currentBus.EntityType);
-                print(matchedStock);
                 if (matchedStock == null)
                 {
-                    Debug.LogWarning("OYUN DURDURULUYOR...");
                     CoreGameSignals.Instance.onLose?.Invoke();
                 }
             }
@@ -62,9 +59,18 @@ namespace RunTime.Managers
 
         public void OnCheckStockObjectsToMoveToBus()
         {
+            int objCounter = 0;
+
             foreach (StockHandler handler in _stockList)
             {
-                handler.CheckObjectToMoveToBus();
+                if (handler.CheckObjectToMoveToBus())
+                {
+                    objCounter++;
+                }
+                if (objCounter >= 3)
+                {
+                    break;
+                }
             }
         }
 

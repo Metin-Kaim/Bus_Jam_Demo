@@ -42,7 +42,7 @@ namespace RunTime.Handlers
                 return;
             }
 
-
+            GetComponent<SphereCollider>().enabled = false;
             List<Coordinate> exitPath = GridSignals.Instance.onGetPathToExit?.Invoke(_currentTileHandler.Row, _currentTileHandler.Column);
             TileHandler[,] tileHandlers = GridSignals.Instance.onGetGridTiles?.Invoke();
             TileHandler currentTileBackUp = _currentTileHandler;
@@ -84,10 +84,10 @@ namespace RunTime.Handlers
 
             if (_currentBusHandler.EntityType == _entityType && _currentBusHandler.IsArrivedToCenter)
             {
-                transform.DOMove(new(_currentBusHandler.transform.position.x, transform.position.y, _currentBusHandler.transform.position.z), .3f).OnComplete(() =>
+                transform.DOMove(new(_currentBusHandler.transform.position.x - .5f, transform.position.y, _currentBusHandler.transform.position.z), .3f).OnComplete(() =>
                 {
-                    _currentBusHandler.IncreaseObjectCount();
-                    Destroy(gameObject);
+                    _currentBusHandler.SetObjectToBus(this);
+                    //Destroy(gameObject);
                 });
                 return true;
             }
