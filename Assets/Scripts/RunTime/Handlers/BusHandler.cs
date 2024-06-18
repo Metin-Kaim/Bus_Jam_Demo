@@ -32,7 +32,7 @@ namespace RunTime.Handlers
 
         private void MoveBus()
         {
-            transform.DOMoveX(20, 1).SetDelay(.8f);
+            transform.DOMoveX(20, 1).SetDelay(.8f).SetUpdate(true);
             BusSignals.Instance.onSpawnNewBus?.Invoke(this);
         }
 

@@ -69,7 +69,6 @@ namespace RunTime.Handlers
             foreach (Coordinate coord in exitPath)
             {
                 Vector3 position = tileHandlers[coord.x, coord.y].transform.position;
-                print("Moving");
                 _animator.SetBool("canMove", true);
                 moveSeq.Append(transform.DOMove(new Vector3(position.x, transform.position.y, position.z), .3f));
                 moveSeq.Join(transform.DOLookAt(position, .2f));

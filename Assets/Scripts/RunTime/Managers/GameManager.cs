@@ -9,6 +9,11 @@ namespace RunTime.Managers
     {
         public static bool IsSpawnedObject { get; set; }
 
+        private void Awake()
+        {
+            Time.timeScale = 1;
+        }
+
         private void OnEnable()
         {
             CoreGameSignals.Instance.onLoadScene += LoadScene;
