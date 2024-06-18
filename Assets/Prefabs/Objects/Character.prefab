@@ -517,7 +517,7 @@ GameObject:
   - component: {fileID: 5134769151219073104}
   - component: {fileID: 6473020949150722891}
   - component: {fileID: 283638744414479966}
-  - component: {fileID: 5514855751292062627}
+  - component: {fileID: 3104984491908678557}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -580,8 +580,8 @@ MonoBehaviour:
   _entityType: -1
   _hatObjectColor: {fileID: 5145995042333090724}
   _animator: {fileID: 6473020949150722891}
---- !u!136 &5514855751292062627
-CapsuleCollider:
+--- !u!65 &3104984491908678557
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -598,11 +598,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.31861922
-  m_Height: 1.2744769
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.5, z: 0}
+  serializedVersion: 3
+  m_Size: {x: 0.692415, y: 1.1857519, z: 0.49200392}
+  m_Center: {x: -0.0022895038, y: 0.5661876, z: -0.064848185}
 --- !u!1 &5122195743924283101
 GameObject:
   m_ObjectHideFlags: 0

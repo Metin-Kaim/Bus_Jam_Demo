@@ -46,7 +46,7 @@ namespace RunTime.Handlers
                 return;
             }
 
-            GetComponent<CapsuleCollider>().enabled = false;
+            GetComponent<BoxCollider>().enabled = false;
             List<Coordinate> exitPath = GridSignals.Instance.onGetPathToExit?.Invoke(_currentTileHandler.Row, _currentTileHandler.Column);
             TileHandler[,] tileHandlers = GridSignals.Instance.onGetGridTiles?.Invoke();
             TileHandler currentTileBackUp = _currentTileHandler;
