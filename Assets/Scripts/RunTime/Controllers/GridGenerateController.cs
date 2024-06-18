@@ -67,18 +67,28 @@ namespace RunTime.Controllers
 
                         if (gameObject1.TryGetComponent(out SpawnerHandler spawner))
                         {
+                            gameObject1.name = $"Spawner {_gridWidth - y}-{x}";
+
                             spawner.Row = (byte)j;
                             spawner.Column = (byte)x;
                             spawner.spawnableTypes.spawnerObjects.AddRange(_levelInfos.spawnerList[spawnerCounter].spawnerObjects);
                             spawnerCounter++;
+                        }
+                        else
+                        {
+                            gameObject1.name = $"Obstacle {_gridWidth - y}-{x}";
                         }
                     }
                     else
                     {
                         objectPosition = tilePosition + (Vector3.up* 0.03f);
                         tileHandler = Instantiate(_tilePrefab, tilePosition, Quaternion.identity, _gridContainer);
+
+                        tileHandler.name = $"Tile {_gridWidth - y}-{x}";
+
                         tileHandler.Row = (byte)j;
                         tileHandler.Column = (byte)x;
+
                         _gridTiles[j, x] = tileHandler;
                         ObjectDetail objectDetail = _objectDetails_SO.objectDetails.FirstOrDefault(a => a.texture == _levelInfos.levelCellInfos[i].texture);
 
