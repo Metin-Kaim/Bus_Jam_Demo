@@ -17,10 +17,12 @@ namespace RunTime.Managers
         private void OnEnable()
         {
             CoreGameSignals.Instance.onLoadScene += LoadScene;
+            CoreGameSignals.Instance.onLose += () => Time.timeScale = 0;
         }
         private void OnDisable()
         {
             CoreGameSignals.Instance.onLoadScene -= LoadScene;
+            CoreGameSignals.Instance.onLose -= () => Time.timeScale = 0;
         }
 
         private void LoadScene(int sceneIndex)

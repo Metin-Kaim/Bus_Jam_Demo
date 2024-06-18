@@ -103,10 +103,13 @@ namespace RunTime.Handlers
 
             Vector3 spawnPosition = _tiles[_spawnableRow, _spawnableColumn].gameObject.transform.position + (Vector3.up * 0.03f);
             ObjectHandler objectHandler = Instantiate(_objectPrefab, spawnPosition, Quaternion.identity, transform.parent);
+
+            objectHandler.name = $"Spawned Object {_spawnableRow}-{_spawnableColumn}";
+
             objectHandler.EntityType = objectDetail.entityType;
             objectHandler.HatObjectColor = (Color)ColorSignals.Instance.onGetColor?.Invoke(objectDetail.entityType);
 
-            objectHandler.transform.localScale = Vector3.zero;
+            objectHandler.transform.localScale = Vector3.zero * .2f;
 
             objectHandler.transform.DOMove(new(spawnPosition.x, objectHandler.transform.position.y, spawnPosition.z), .3f).From(transform.position);
 

@@ -49,7 +49,6 @@ namespace RunTime.Managers
         {
             yield return new WaitForSeconds(1);
             panel.SetActive(true);
-            Time.timeScale = 0;
         }
 
         public void OnClickedPanelButton() // Level up - Restart
