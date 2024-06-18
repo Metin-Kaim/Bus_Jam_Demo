@@ -109,7 +109,7 @@ namespace RunTime.Handlers
             objectHandler.EntityType = objectDetail.entityType;
             objectHandler.HatObjectColor = (Color)ColorSignals.Instance.onGetColor?.Invoke(objectDetail.entityType);
 
-            objectHandler.transform.localScale = Vector3.zero * .2f;
+            objectHandler.transform.localScale = Vector3.zero;
 
             objectHandler.transform.DOMove(new(spawnPosition.x, objectHandler.transform.position.y, spawnPosition.z), .3f).From(transform.position);
 
