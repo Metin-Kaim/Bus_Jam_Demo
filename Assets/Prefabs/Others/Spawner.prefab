@@ -387,3 +387,4 @@ MonoBehaviour:
   spawnableTypes:
     spawnerObjects: 
   _spawnerObjectCountTxt: {fileID: 4914042606286798429}
+  _objectPrefab: {fileID: 283638744414479966, guid: 72550e70fba547a49813d97cee7a9a16, type: 3}

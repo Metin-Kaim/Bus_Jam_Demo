@@ -1,0 +1,268 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69b65966df9b6094280782d6aeb4cae1, type: 3}
+  m_Name: Level 8
+  m_EditorClassIdentifier: 
+  levelCellInfos:
+  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
+    isObstacle: 1
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
+    isObstacle: 1
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
+    isObstacle: 1
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 0155f537d15270b48b30c01266c705f8, type: 3}
+    isObstacle: 0
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 0de534f9bf1a00c4ebe6b2602860c5bc, type: 3}
+    isObstacle: 0
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 05c2bd45d38082e4085cdd2a48502837, type: 3}
+    isObstacle: 0
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
+    isObstacle: 1
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
+    isObstacle: 1
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
+    isObstacle: 1
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
+    isObstacle: 1
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
+    isObstacle: 1
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 05c2bd45d38082e4085cdd2a48502837, type: 3}
+    isObstacle: 0
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 0155f537d15270b48b30c01266c705f8, type: 3}
+    isObstacle: 0
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 0155f537d15270b48b30c01266c705f8, type: 3}
+    isObstacle: 0
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 05c2bd45d38082e4085cdd2a48502837, type: 3}
+    isObstacle: 0
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 0de534f9bf1a00c4ebe6b2602860c5bc, type: 3}
+    isObstacle: 0
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
+    isObstacle: 1
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
+    isObstacle: 1
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
+    isObstacle: 1
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
+    isObstacle: 1
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 05c2bd45d38082e4085cdd2a48502837, type: 3}
+    isObstacle: 0
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: d26c36d0cd2417945a2c42e6f0ed5156, type: 3}
+    isObstacle: 0
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: f4de563bc24fbab4dbffe15182abc5d8, type: 3}
+    isObstacle: 0
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 05c2bd45d38082e4085cdd2a48502837, type: 3}
+    isObstacle: 0
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
+    isObstacle: 1
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
+    isObstacle: 1
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
+    isObstacle: 1
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
+    isObstacle: 1
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
+    isObstacle: 1
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
+    isObstacle: 1
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: f4de563bc24fbab4dbffe15182abc5d8, type: 3}
+    isObstacle: 0
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 0de534f9bf1a00c4ebe6b2602860c5bc, type: 3}
+    isObstacle: 0
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: d26c36d0cd2417945a2c42e6f0ed5156, type: 3}
+    isObstacle: 0
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
+    isObstacle: 1
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
+    isObstacle: 1
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
+    isObstacle: 1
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
+    isObstacle: 1
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
+    isObstacle: 1
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
+    isObstacle: 1
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 05c2bd45d38082e4085cdd2a48502837, type: 3}
+    isObstacle: 0
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: d26c36d0cd2417945a2c42e6f0ed5156, type: 3}
+    isObstacle: 0
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: f4de563bc24fbab4dbffe15182abc5d8, type: 3}
+    isObstacle: 0
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
+    isObstacle: 1
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
+    isObstacle: 1
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
+    isObstacle: 1
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
+    isObstacle: 1
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
+    isObstacle: 1
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
+    isObstacle: 1
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
+    isObstacle: 1
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
+    isObstacle: 1
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
+    isObstacle: 1
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
+    isObstacle: 1
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
+    isObstacle: 1
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
+    isObstacle: 1
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
+    isObstacle: 1
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
+    isObstacle: 1
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
+    isObstacle: 1
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
+    isObstacle: 1
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
+    isObstacle: 1
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
+    isObstacle: 1
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
+    isObstacle: 1
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
+    isObstacle: 1
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
+    isObstacle: 1
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
+    isObstacle: 1
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
+    isObstacle: 1
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
+    isObstacle: 1
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
+    isObstacle: 1
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
+    isObstacle: 1
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
+    isObstacle: 1
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
+    isObstacle: 1
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
+    isObstacle: 1
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
+    isObstacle: 1
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
+    isObstacle: 1
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
+    isObstacle: 1
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
+    isObstacle: 1
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
+    isObstacle: 1
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
+    isObstacle: 1
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
+    isObstacle: 1
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
+    isObstacle: 1
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
+    isObstacle: 1
+    rotation: {x: 0, y: 180, z: 0}
+  - texture: {fileID: 2800000, guid: 7962033a4239ba04bac258b8a3976c5f, type: 3}
+    isObstacle: 1
+    rotation: {x: 0, y: 180, z: 0}
+  levelBusInfos:
+  - busColorType: 2
+  - busColorType: 3
+  - busColorType: 1
+  - busColorType: 0
+  - busColorType: 4
+  - busColorType: 3
+  spawnerList: []
+  timer: 25
+  isSlideGridToLeft: 0

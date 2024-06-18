@@ -56,13 +56,13 @@ namespace RunTime.Controllers
                     Vector3 tilePosition = new(x * _tileSpacing, 0, y * _tileSpacing);
                     Vector3 objectPosition;
                     TileHandler tileHandler = null;
-                    ObjectDetail objectDetail;
+
                     if (_levelInfos.levelCellInfos[i].isObstacle)
                     {
                         objectPosition = tilePosition;
-                        objectDetail = _objectDetails_SO.obstacleDetails.FirstOrDefault(a => a.texture == _levelInfos.levelCellInfos[i].texture);
+                        ObstacleDetail obstacleDetail = _objectDetails_SO.obstacleDetails.FirstOrDefault(a => a.texture == _levelInfos.levelCellInfos[i].texture);
 
-                        GameObject gameObject1 = Instantiate(objectDetail.gameObject, objectPosition, Quaternion.identity, _gridContainer);
+                        GameObject gameObject1 = Instantiate(obstacleDetail.gameObject, objectPosition, Quaternion.identity, _gridContainer);
                         gameObject1.transform.rotation = Quaternion.Euler(_levelInfos.levelCellInfos[i].rotation);
 
                         if (gameObject1.TryGetComponent(out SpawnerHandler spawner))
@@ -75,16 +75,16 @@ namespace RunTime.Controllers
                     }
                     else
                     {
-                        objectPosition = tilePosition + (Vector3.up * .5f);
+                        objectPosition = tilePosition + (Vector3.up* 0.03f);
                         tileHandler = Instantiate(_tilePrefab, tilePosition, Quaternion.identity, _gridContainer);
                         tileHandler.Row = (byte)j;
                         tileHandler.Column = (byte)x;
                         _gridTiles[j, x] = tileHandler;
-                        objectDetail = _objectDetails_SO.objectDetails.FirstOrDefault(a => a.texture == _levelInfos.levelCellInfos[i].texture);
+                        ObjectDetail objectDetail = _objectDetails_SO.objectDetails.FirstOrDefault(a => a.texture == _levelInfos.levelCellInfos[i].texture);
 
                         ObjectHandler newObject = Instantiate(_objectPrefab, objectPosition, Quaternion.identity, _gridContainer);
                         newObject.EntityType = objectDetail.entityType;
-                        newObject.GetComponent<MeshRenderer>().material.color = (Color)(ColorSignals.Instance.onGetColor?.Invoke(objectDetail.entityType));
+                        newObject.HatObjectColor = (Color)(ColorSignals.Instance.onGetColor?.Invoke(objectDetail.entityType));
 
                         tileHandler.CurrentObjectHandler = newObject;
                         newObject.CurrentTileHandler = tileHandler;

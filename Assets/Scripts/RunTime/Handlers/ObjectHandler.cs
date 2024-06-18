@@ -12,6 +12,8 @@ namespace RunTime.Handlers
     public class ObjectHandler : MonoBehaviour, IEntityTypes
     {
         [SerializeField] private EntityTypes _entityType;
+        [SerializeField] MeshRenderer _hatObjectColor;
+        [SerializeField] Animator _animator;
 
         private StockHandler _currentStockHandler;
         private TileHandler _currentTileHandler;
@@ -24,6 +26,8 @@ namespace RunTime.Handlers
         public StockHandler CurrentStockHandler { get => _currentStockHandler; set => _currentStockHandler = value; }
         public TileHandler CurrentTileHandler { get => _currentTileHandler; set => _currentTileHandler = value; }
         public bool IsClickable { get => _isClickable; set => _isClickable = value; }
+
+        public Color HatObjectColor { get => _hatObjectColor.material.color; set => _hatObjectColor.material.color = value; }
 
         private void Start()
         {
@@ -42,7 +46,7 @@ namespace RunTime.Handlers
                 return;
             }
 
-            GetComponent<SphereCollider>().enabled = false;
+            GetComponent<CapsuleCollider>().enabled = false;
             List<Coordinate> exitPath = GridSignals.Instance.onGetPathToExit?.Invoke(_currentTileHandler.Row, _currentTileHandler.Column);
             TileHandler[,] tileHandlers = GridSignals.Instance.onGetGridTiles?.Invoke();
             TileHandler currentTileBackUp = _currentTileHandler;
@@ -65,7 +69,10 @@ namespace RunTime.Handlers
             foreach (Coordinate coord in exitPath)
             {
                 Vector3 position = tileHandlers[coord.x, coord.y].transform.position;
-                moveSeq.Append(transform.DOMove(new Vector3(position.x, transform.position.y, position.z), .1f));
+                print("Moving");
+                _animator.SetBool("canMove", true);
+                moveSeq.Append(transform.DOMove(new Vector3(position.x, transform.position.y, position.z), .3f));
+                moveSeq.Join(transform.DOLookAt(position, .2f));
             }
             moveSeq.AppendCallback(() =>
             {
@@ -84,11 +91,15 @@ namespace RunTime.Handlers
 
             if (_currentBusHandler.EntityType == _entityType && _currentBusHandler.IsArrivedToCenter)
             {
-                transform.DOMove(new(_currentBusHandler.transform.position.x - .5f, transform.position.y, _currentBusHandler.transform.position.z), .3f).OnComplete(() =>
+                _animator.SetBool("canMove", true);
+                transform.DOMove(new(_currentBusHandler.transform.position.x - .5f, transform.position.y, _currentBusHandler.transform.position.z), .9f)
+                    .OnComplete(() =>
                 {
                     _currentBusHandler.SetObjectToBus(this);
-                    //Destroy(gameObject);
+                    _animator.SetBool("canMove", false);
+                    transform.rotation = Quaternion.Euler(0, 90, 0);
                 });
+                transform.DOLookAt(_currentBusHandler.transform.position, .2f);
                 return true;
             }
             return false;
@@ -96,6 +107,7 @@ namespace RunTime.Handlers
         private void MoveToStock()
         {
             StockHandler stockHandler = StockSignals.Instance.onGetAvailableStock?.Invoke();
+            _animator.SetBool("canMove", true);
 
             stockHandler.IsEmpty = false;
             _currentStockHandler = stockHandler;
@@ -103,7 +115,8 @@ namespace RunTime.Handlers
 
             if (stockHandler != null)
             {
-                transform.DOMove(new(stockHandler.transform.position.x, transform.position.y, stockHandler.transform.position.z), .3f);
+                transform.DOMove(new(stockHandler.transform.position.x, transform.position.y, stockHandler.transform.position.z), .7f)
+                    .OnComplete(() => _animator.SetBool("canMove", false));
             }
         }
 

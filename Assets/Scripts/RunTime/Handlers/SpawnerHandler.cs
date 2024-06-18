@@ -15,6 +15,7 @@ namespace RunTime.Handlers
         public SpawnerObjectInfo spawnableTypes;
 
         [SerializeField] TextMeshPro _spawnerObjectCountTxt;
+        [SerializeField] ObjectHandler _objectPrefab;
 
         Vector3 _objectCountRotation;
         byte _spawnableRow;
@@ -98,15 +99,23 @@ namespace RunTime.Handlers
         {
             GameManager.IsSpawnedObject = true;
 
-            GameObject newObject = _objectDetails_SO.objectDetails.FirstOrDefault(x => x.entityType == spawnableTypes.spawnerObjects[0]).gameObject;
-            Vector3 spawnPosition = _tiles[_spawnableRow, _spawnableColumn].gameObject.transform.position + (Vector3.up * .5f);
-            GameObject spawnedObject = Instantiate(newObject, spawnPosition, Quaternion.identity, transform.parent);
-            spawnedObject.transform.DOMove(new(spawnPosition.x, spawnedObject.transform.position.y, spawnPosition.z), .3f).From(transform.position);
-            spawnedObject.transform.localScale = Vector3.zero;
+            ObjectDetail objectDetail = _objectDetails_SO.objectDetails.FirstOrDefault(x => x.entityType == spawnableTypes.spawnerObjects[0]);
+
+            Vector3 spawnPosition = _tiles[_spawnableRow, _spawnableColumn].gameObject.transform.position + (Vector3.up * 0.03f);
+            ObjectHandler objectHandler = Instantiate(_objectPrefab, spawnPosition, Quaternion.identity, transform.parent);
+            objectHandler.EntityType = objectDetail.entityType;
+            objectHandler.HatObjectColor = (Color)ColorSignals.Instance.onGetColor?.Invoke(objectDetail.entityType);
+
+            objectHandler.transform.localScale = Vector3.zero;
+
+            objectHandler.transform.DOMove(new(spawnPosition.x, objectHandler.transform.position.y, spawnPosition.z), .3f).From(transform.position);
+
             spawnableTypes.spawnerObjects.RemoveAt(0);
-            ObjectHandler objectHandler = spawnedObject.GetComponent<ObjectHandler>();
+
             objectHandler.IsLastObjetOfSpawner = spawnableTypes.spawnerObjects.Count <= 0;
+
             _grid[_spawnableRow, _spawnableColumn] = 2;
+
             objectHandler.CurrentTileHandler = _tiles[_spawnableRow, _spawnableColumn];
             objectHandler.CurrentTileHandler.CurrentObjectHandler = objectHandler;
             objectHandler.OpenThisObject();

@@ -10,10 +10,11 @@ namespace RunTime.Handlers
     {
         [SerializeField] private EntityTypes _entityTypes;
         [SerializeField] Transform[] _objectPoints;
-
+        [SerializeField] MeshRenderer _busColor;
         private int _objectCount;
         private bool _isArrivedToCenter;
 
+        public Color BusColor { get => _busColor.material.color; set => _busColor.material.color = value; }
         public int ObjectCount
         {
             get => _objectCount;

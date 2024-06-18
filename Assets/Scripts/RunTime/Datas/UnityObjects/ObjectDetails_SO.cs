@@ -8,6 +8,6 @@ namespace RunTime.Datas.UnityObjects
     public class ObjectDetails_SO : ScriptableObject
     {
         public List<ObjectDetail> objectDetails;
-        public List<ObjectDetail> obstacleDetails;
+        public List<ObstacleDetail> obstacleDetails;
     }
 }

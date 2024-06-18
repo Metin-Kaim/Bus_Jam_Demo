@@ -72,15 +72,13 @@ namespace RunTime.Controllers
                 return;
             }
 
-            BusHandler busHandler = Instantiate(_busPrefab, _busContainer.position, Quaternion.Euler(0, 90, 0), _busContainer);
+            BusHandler busHandler = Instantiate(_busPrefab, _busContainer.position + (Vector3.up * .9f), Quaternion.identity, _busContainer);
 
             Enums.EntityTypes busColorType = _levelInfos.levelBusInfos[_busListCounter].busColorType;
 
             busHandler.EntityType = busColorType;
 
-            Material material = busHandler.GetComponent<MeshRenderer>().materials[0];
-
-            material.color = (Color)(ColorSignals.Instance.onGetColor?.Invoke(busColorType));
+            busHandler.BusColor = (Color)(ColorSignals.Instance.onGetColor?.Invoke(busColorType));
 
             _busMovementController.buses.Add(busHandler);
 
